@@ -20,75 +20,83 @@ import {
 
 export type FontScale = "normal" | "large" | "x-large";
 
-interface AccessibilityState {
+interface Prefs {
   legibleFont: boolean;
   fontScale: FontScale;
+}
+
+interface AccessibilityState extends Prefs {
   toggleLegibleFont: () => void;
   setFontScale: (scale: FontScale) => void;
 }
 
 const STORAGE_KEY = "atlas:a11y";
+const DEFAULT_PREFS: Prefs = { legibleFont: false, fontScale: "normal" };
 
 const AccessibilityContext = createContext<AccessibilityState | null>(null);
 
-function applyToDocument(legibleFont: boolean, fontScale: FontScale) {
+function applyToDocument({ legibleFont, fontScale }: Prefs) {
   const root = document.documentElement;
   root.classList.toggle("font-legible", legibleFont);
   root.dataset.fontScale = fontScale;
 }
 
+function readStored(): Prefs {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return DEFAULT_PREFS;
+    const parsed = JSON.parse(raw) as Partial<Prefs>;
+    return {
+      legibleFont: Boolean(parsed.legibleFont),
+      fontScale: (parsed.fontScale as FontScale) ?? "normal",
+    };
+  } catch {
+    return DEFAULT_PREFS;
+  }
+}
+
 export function AccessibilityProvider({ children }: { children: React.ReactNode }) {
-  const [legibleFont, setLegibleFont] = useState(false);
-  const [fontScale, setFontScaleState] = useState<FontScale>("normal");
+  // Starts at defaults so the server-rendered markup matches first client render
+  // (no hydration mismatch). The stored prefs are loaded once, post-mount, below.
+  const [prefs, setPrefs] = useState<Prefs>(DEFAULT_PREFS);
 
-  // Hydrate saved preferences on mount.
+  // Hydrate saved preferences from localStorage on mount. This is a one-time sync from an
+  // external store into React state; it must run after hydration (localStorage is unavailable
+  // during SSR), so a single post-mount state update is the correct pattern here.
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as Partial<AccessibilityState>;
-        const nextLegible = Boolean(parsed.legibleFont);
-        const nextScale = (parsed.fontScale as FontScale) ?? "normal";
-        setLegibleFont(nextLegible);
-        setFontScaleState(nextScale);
-        applyToDocument(nextLegible, nextScale);
+    const stored = readStored();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional one-time hydration from localStorage
+    setPrefs(stored);
+    applyToDocument(stored);
+  }, []);
+
+  // Applies a preference change: updates React state, the <html> element, and localStorage.
+  const commit = useCallback((updater: (prev: Prefs) => Prefs) => {
+    setPrefs((prev) => {
+      const next = updater(prev);
+      applyToDocument(next);
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      } catch {
+        // Storage may be unavailable (private mode); preferences still apply for the session.
       }
-    } catch {
-      // Ignore malformed storage; fall back to defaults.
-    }
-  }, []);
-
-  const persist = useCallback((legible: boolean, scale: FontScale) => {
-    applyToDocument(legible, scale);
-    try {
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({ legibleFont: legible, fontScale: scale }),
-      );
-    } catch {
-      // Storage may be unavailable (private mode); preferences still apply for the session.
-    }
-  }, []);
-
-  const toggleLegibleFont = useCallback(() => {
-    setLegibleFont((prev) => {
-      const next = !prev;
-      persist(next, fontScale);
       return next;
     });
-  }, [fontScale, persist]);
+  }, []);
 
-  const setFontScale = useCallback(
-    (scale: FontScale) => {
-      setFontScaleState(scale);
-      persist(legibleFont, scale);
-    },
-    [legibleFont, persist],
+  const toggleLegibleFont = useCallback(
+    () => commit((prev) => ({ ...prev, legibleFont: !prev.legibleFont })),
+    [commit],
   );
 
-  const value = useMemo(
-    () => ({ legibleFont, fontScale, toggleLegibleFont, setFontScale }),
-    [legibleFont, fontScale, toggleLegibleFont, setFontScale],
+  const setFontScale = useCallback(
+    (scale: FontScale) => commit((prev) => ({ ...prev, fontScale: scale })),
+    [commit],
+  );
+
+  const value = useMemo<AccessibilityState>(
+    () => ({ ...prefs, toggleLegibleFont, setFontScale }),
+    [prefs, toggleLegibleFont, setFontScale],
   );
 
   return (
