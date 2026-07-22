@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
+/**
+ * ATLAS global styles — University of Michigan Enterprise Risk Office.
+ * Brand tokens per U-M Brand Identity Style Guide (Feb 2025). See src/lib/colors.ts
+ * for the authoritative palette + approved contrast pairings.
+ */
+
 :root {
+  /* Signature colors */
+  --um-blue: #00274c;
+  --um-maize: #ffcb05;
+
+  /* Secondary / supporting (accents only) */
+  --um-tappan-red: #9a3324;
+  --um-ross-orange: #d86018;
+  --um-wavefield-green: #a5a508;
+  --um-taubman-teal: #00b2a9;
+  --um-rackham-green: #75988d;
+  --um-arboretum-blue: #2f65a7;
+  --um-amethyst: #702082;
+  --um-matthaei-violet: #575294;
+
+  /* Neutrals */
+  --um-tan: #cfc096;
+  --um-beige: #9b9a6d;
+  --um-ash: #989c97;
+  --um-stone: #80764b;
+  --um-black-metallic: #131516;
+
+  /* Semantic surface/text defaults (light, brand-appropriate) */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--um-black-metallic);
+  --surface-muted: #f4f5f7;
+  --border-subtle: #e3e6ea;
 }
 
+/* Map brand tokens into Tailwind's theme so utilities like bg-um-blue, text-um-maize work. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface-muted: var(--surface-muted);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-um-blue: var(--um-blue);
+  --color-um-maize: var(--um-maize);
+  --color-um-tappan-red: var(--um-tappan-red);
+  --color-um-ross-orange: var(--um-ross-orange);
+  --color-um-wavefield-green: var(--um-wavefield-green);
+  --color-um-taubman-teal: var(--um-taubman-teal);
+  --color-um-rackham-green: var(--um-rackham-green);
+  --color-um-arboretum-blue: var(--um-arboretum-blue);
+  --color-um-amethyst: var(--um-amethyst);
+  --color-um-matthaei-violet: var(--um-matthaei-violet);
+  --color-um-tan: var(--um-tan);
+  --color-um-beige: var(--um-beige);
+  --color-um-ash: var(--um-ash);
+  --color-um-stone: var(--um-stone);
+  --color-um-black-metallic: var(--um-black-metallic);
+
+  /* Fonts (variables provided by next/font in src/lib/fonts.ts) */
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base body type per brand guide: 16px min, generous line-height, left-aligned. */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5;
+  text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+/**
+ * Accessibility: user-toggleable high-legibility mode (Atkinson Hyperlegible).
+ * Applied by AccessibilityProvider adding `.font-legible` to <html>.
+ */
+.font-legible body,
+.font-legible h1,
+.font-legible h2,
+.font-legible h3,
+.font-legible h4,
+.font-legible h5,
+.font-legible h6 {
+  font-family: var(--font-legibility), ui-sans-serif, system-ui, sans-serif !important;
+}
+
+/**
+ * User-selectable base font scale (set via data attribute on <html>).
+ * Uses rem-based scaling so the whole UI grows proportionally.
+ */
+html[data-font-scale="large"] {
+  font-size: 112.5%; /* ~18px base */
+}
+html[data-font-scale="x-large"] {
+  font-size: 125%; /* ~20px base */
+}
+
+/* Visible focus states for keyboard users (WCAG 2.4.7). */
+:focus-visible {
+  outline: 3px solid var(--um-maize);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Respect user motion preferences (WCAG 2.3.3 / brand guide). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Skip-to-content link: visually hidden until focused. */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -3rem;
+  z-index: 100;
+  background: var(--um-maize);
+  color: var(--um-blue);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  transition: top 0.15s ease-in;
+}
+.skip-link:focus {
+  top: 0.5rem;
 }
