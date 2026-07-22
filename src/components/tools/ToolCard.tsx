@@ -1,0 +1,92 @@
+import Link from "next/link";
+import { Badge, Card, CardBody, NonUniversityToolBadge } from "@/components/ui";
+import type { Tool } from "@/lib/content/types";
+
+/**
+ * ToolCard — reference card for one AI tool.
+ * If the tool is NOT university-provided, the non-University warning banner renders
+ * automatically (driven by the `universityProvided` flag in tools.json) so the caveat
+ * can never be forgotten.
+ *
+ * The card is anchored by its id so links like /tools#gemini scroll to it.
+ */
+export function ToolCard({ tool }: { tool: Tool }) {
+  return (
+    <Card
+      id={tool.id}
+      accent={tool.universityProvided ? "bg-um-maize" : "bg-um-tappan-red"}
+      className="scroll-mt-24"
+    >
+      <CardBody>
+        <div className="flex flex-wrap items-center gap-2">
+          <h2 className="text-xl font-bold text-um-blue">{tool.name}</h2>
+          {tool.universityProvided ? (
+            <Badge tone="success">{tool.label}</Badge>
+          ) : (
+            <Badge tone="danger" glyph="⚠">
+              External tool
+            </Badge>
+          )}
+        </div>
+
+        <p className="mt-2 leading-relaxed text-um-black-metallic">{tool.shortDescription}</p>
+
+        {!tool.universityProvided && (
+          <div className="mt-3">
+            <NonUniversityToolBadge variant="banner" />
+          </div>
+        )}
+
+        <p className="mt-4 text-sm font-medium text-um-blue">Best for</p>
+        <p className="text-sm text-um-black-metallic">{tool.bestFor}</p>
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <ToolList title="Approved for" items={tool.approvedFor} />
+          <ToolList title="Strengths" items={tool.strengths} />
+          <ToolList title="Limitations" items={tool.limitations} />
+          <div>
+            <p className="text-sm font-semibold text-um-blue">Data sensitivity</p>
+            <p className="mt-1 text-sm text-um-black-metallic">{tool.dataSensitivityNote}</p>
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-md bg-surface-muted p-3">
+          <p className="text-sm font-semibold text-um-blue">How to access</p>
+          <p className="mt-1 text-sm text-um-black-metallic">{tool.accessPath}</p>
+        </div>
+
+        {tool.relatedPlaybookTags.length > 0 && (
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-wide text-um-stone">
+              Related guidance:
+            </span>
+            {tool.relatedPlaybookTags.map((tag) => (
+              <Link
+                key={tag}
+                href={`/playbook?tag=${encodeURIComponent(tag)}`}
+                className="rounded-full border border-border-subtle px-2.5 py-0.5 text-xs font-medium text-um-arboretum-blue hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-blue"
+              >
+                #{tag}
+              </Link>
+            ))}
+          </div>
+        )}
+      </CardBody>
+    </Card>
+  );
+}
+
+function ToolList({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div>
+      <p className="text-sm font-semibold text-um-blue">{title}</p>
+      <ul className="mt-1 space-y-1">
+        {items.map((item, i) => (
+          <li key={i} className="text-sm leading-relaxed text-um-black-metallic">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

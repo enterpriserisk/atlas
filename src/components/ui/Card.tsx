@@ -12,12 +12,14 @@ interface CardProps {
   children: React.ReactNode;
   /** Visual emphasis via a colored left accent bar (uses a brand token class, e.g. "bg-um-maize"). */
   accent?: string;
+  /** Optional DOM id, e.g. for in-page anchor links (#tool-id). */
+  id?: string;
 }
 
 const surface =
   "relative overflow-hidden rounded-lg border border-border-subtle bg-white shadow-sm";
 
-export function Card({ href, className, children, accent }: CardProps) {
+export function Card({ href, className, children, accent, id }: CardProps) {
   const interactive = href
     ? "block transition-shadow hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-blue"
     : "";
@@ -30,12 +32,16 @@ export function Card({ href, className, children, accent }: CardProps) {
 
   if (href) {
     return (
-      <Link href={href} className={cn(surface, interactive, className)}>
+      <Link id={id} href={href} className={cn(surface, interactive, className)}>
         {content}
       </Link>
     );
   }
-  return <div className={cn(surface, className)}>{content}</div>;
+  return (
+    <div id={id} className={cn(surface, className)}>
+      {content}
+    </div>
+  );
 }
 
 export function CardBody({ className, children }: { className?: string; children: React.ReactNode }) {
