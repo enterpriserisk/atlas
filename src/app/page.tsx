@@ -44,7 +44,7 @@ export default function Home() {
             Use AI effectively, consistently, and responsibly.
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/90">
-            ATLAS is a living playbook that helps ERO staff decide when AI fits a task, which tool
+            ATLAS is a living playbook that helps ERM staff decide when AI fits a task, which tool
             to use, and how to use it well — with responsible-use standards built in.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
