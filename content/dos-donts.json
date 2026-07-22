@@ -1,0 +1,150 @@
+{
+  "_comment": "Do's and Don'ts reference, fully data-driven. Each section renders as an accordion panel with a Do list (green) and Don't list (red), plus one example scenario. ALL content below is DRAFT placeholder reflecting general enterprise-risk / higher-ed best practice — ERO subject-matter experts must review and finalize. Set a section's \"draft\" to false once approved to hide its Draft tag.",
+  "lastReviewedByERO": null,
+  "sections": [
+    {
+      "id": "appropriate-uses",
+      "title": "Appropriate Uses of AI",
+      "draft": true,
+      "dos": [
+        "Use AI to draft, brainstorm, summarize, and reorganize non-sensitive material.",
+        "Use it to get unstuck — outlines, first drafts, alternative phrasings.",
+        "Treat AI output as a starting point that you review and revise.",
+        "Prefer University-provided tools (U-M GPT, U-M Maizey) for work tasks."
+      ],
+      "donts": [
+        "Don't use AI as the final authority on facts, policy, or legal questions.",
+        "Don't paste confidential, regulated, or personal data into tools not approved for it.",
+        "Don't use AI for decisions that require human accountability without human review.",
+        "Don't assume output is accurate just because it sounds confident."
+      ],
+      "example": "A staff member uses U-M GPT to draft a first version of an internal FAQ, then fact-checks and edits it before sharing — appropriate. Using it to generate a final compliance determination with no review would not be."
+    },
+    {
+      "id": "human-review",
+      "title": "When Human Review Is Required",
+      "draft": true,
+      "dos": [
+        "Require human review for anything external-facing, high-impact, or decision-critical.",
+        "Have a knowledgeable person verify facts, figures, names, and citations.",
+        "Document who reviewed AI-assisted output and when.",
+        "Escalate anything touching legal, HR, financial, or regulated matters."
+      ],
+      "donts": [
+        "Don't send AI-generated content to leadership or external parties unreviewed.",
+        "Don't rely on AI for final numbers, deadlines, or commitments without checking.",
+        "Don't skip review because the output 'looks professional.'",
+        "Don't treat AI as a reviewer of its own work."
+      ],
+      "example": "Before a summary of a risk assessment goes to a dean, a subject-matter expert reviews it for accuracy and completeness. High-impact and external-facing output always gets a human check."
+    },
+    {
+      "id": "confidential-information",
+      "title": "Protecting Confidential Information",
+      "draft": true,
+      "dos": [
+        "Know your data's classification before using any AI tool with it.",
+        "Use only tools approved for that data classification.",
+        "Strip or anonymize identifiers when the task allows it.",
+        "When in doubt, leave sensitive details out of the prompt."
+      ],
+      "donts": [
+        "Don't paste personal, health, financial, or otherwise regulated data into unapproved tools.",
+        "Don't upload documents you don't have the right to share with a third party.",
+        "Don't assume 'private mode' means the data is protected.",
+        "Don't include credentials, keys, or passwords in prompts."
+      ],
+      "example": "Instead of pasting a spreadsheet of names and IDs to get a summary, a staff member summarizes the aggregate patterns without the identifying columns."
+    },
+    {
+      "id": "citation-practices",
+      "title": "Citation Practices",
+      "draft": true,
+      "dos": [
+        "Disclose when AI meaningfully assisted in producing content, per local norms.",
+        "Cite the original, authoritative source — not the AI tool — for facts.",
+        "Verify that any citations an AI provides actually exist and say what's claimed.",
+        "Follow applicable style, disclosure, and academic-integrity guidance."
+      ],
+      "donts": [
+        "Don't present AI-generated text as independently researched when it wasn't.",
+        "Don't trust AI-provided citations without checking them — they are often fabricated.",
+        "Don't cite the AI tool as a primary source for factual claims.",
+        "Don't omit disclosure where transparency is expected."
+      ],
+      "example": "An AI draft references a policy 'Section 4.2.' The author confirms that section exists and says what's claimed before citing it — and cites the policy document, not the AI."
+    },
+    {
+      "id": "fact-checking",
+      "title": "Fact-Checking Procedures",
+      "draft": true,
+      "dos": [
+        "Independently verify every factual claim, statistic, name, and date.",
+        "Cross-check against authoritative primary sources.",
+        "Be extra skeptical of specific numbers and quotations.",
+        "Build verification time into any AI-assisted workflow."
+      ],
+      "donts": [
+        "Don't publish or forward unverified AI claims.",
+        "Don't accept a source just because the AI named it.",
+        "Don't assume recent events are covered accurately.",
+        "Don't let time pressure replace verification."
+      ],
+      "example": "Before including a statistic from an AI summary in a report, the author traces it to the original dataset and confirms the figure and its context."
+    },
+    {
+      "id": "avoiding-hallucinations",
+      "title": "Avoiding AI Hallucinations",
+      "draft": true,
+      "dos": [
+        "Ground the tool in your own trusted sources when possible (e.g., U-M Maizey).",
+        "Ask the tool to indicate uncertainty or cite where a claim came from.",
+        "Prefer summarizing text you provide over asking for facts from memory.",
+        "Treat confident, specific-sounding detail as a prompt to verify, not to trust."
+      ],
+      "donts": [
+        "Don't ask an AI for facts it has no reliable way to know.",
+        "Don't assume grounding eliminates errors — still verify.",
+        "Don't use fabricated-looking quotes, cases, or references.",
+        "Don't equate fluency with accuracy."
+      ],
+      "example": "Rather than asking 'what does U-M policy say about X,' a staff member pastes the relevant policy text and asks the tool to summarize it — grounding the answer in the real source."
+    },
+    {
+      "id": "writing-quality",
+      "title": "Writing Quality Standards",
+      "draft": true,
+      "dos": [
+        "Edit AI drafts for accuracy, tone, and your own voice.",
+        "Ensure clarity, correct terminology, and appropriate reading level.",
+        "Keep formatting accessible (headings, plain language, alt text).",
+        "Make sure the final product reflects your judgment, not just the tool's."
+      ],
+      "donts": [
+        "Don't ship AI text verbatim without editing.",
+        "Don't let AI introduce jargon, filler, or an off-brand tone.",
+        "Don't sacrifice accessibility for stylistic flourish.",
+        "Don't lose the specific context the AI couldn't know."
+      ],
+      "example": "An AI-drafted announcement is edited down for plain language, correct unit names, and an accessible heading structure before it's sent."
+    },
+    {
+      "id": "ethical-considerations",
+      "title": "Ethical Considerations",
+      "draft": true,
+      "dos": [
+        "Consider fairness, bias, and who could be affected by the output.",
+        "Be transparent about AI use where people would reasonably expect it.",
+        "Respect privacy, consent, and intellectual-property rights.",
+        "Keep human accountability for decisions that affect people."
+      ],
+      "donts": [
+        "Don't use AI to make consequential decisions about people without oversight.",
+        "Don't ignore signs of biased or unfair output.",
+        "Don't misrepresent AI-generated content as human-authored where that matters.",
+        "Don't offload responsibility onto the tool."
+      ],
+      "example": "When AI is used to help screen or summarize information about individuals, a person remains accountable for the outcome and checks for biased or unfair patterns."
+    }
+  ]
+}

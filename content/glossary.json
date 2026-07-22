@@ -1,0 +1,65 @@
+{
+  "_comment": "Plain-language definitions of AI terms. Surfaced site-wide via tooltip/hover on matching terms. Editable by non-engineers. `term` is what users see; `aliases` are alternate spellings/forms that should also trigger the tooltip.",
+  "terms": [
+    {
+      "term": "Hallucination",
+      "aliases": ["hallucinate", "hallucinations"],
+      "definition": "When an AI tool produces information that sounds confident and plausible but is actually false, made up, or not supported by any real source. Always verify factual claims independently."
+    },
+    {
+      "term": "Prompt",
+      "aliases": ["prompts", "prompting"],
+      "definition": "The instructions or question you give an AI tool. A clear, specific prompt with the right context usually produces a better, more useful response."
+    },
+    {
+      "term": "Prompt engineering",
+      "aliases": ["prompt-engineering"],
+      "definition": "The practice of writing and refining prompts to get more accurate, relevant, or well-formatted results from an AI tool."
+    },
+    {
+      "term": "Context window",
+      "aliases": ["context length"],
+      "definition": "The maximum amount of text an AI tool can consider at once — including your prompt and its response. Very long documents may exceed it, causing the tool to 'forget' earlier parts."
+    },
+    {
+      "term": "RAG",
+      "aliases": ["retrieval-augmented generation", "retrieval augmented generation"],
+      "definition": "Retrieval-Augmented Generation: a technique where an AI tool looks up relevant information from a specific set of documents and uses it to answer, rather than relying only on what it learned during training. This grounds answers in real sources and reduces hallucination."
+    },
+    {
+      "term": "Large language model",
+      "aliases": ["LLM", "language model", "foundation model"],
+      "definition": "The underlying AI system (such as the model behind U-M GPT) trained on large amounts of text to predict and generate human-like language."
+    },
+    {
+      "term": "Training data",
+      "aliases": ["training set"],
+      "definition": "The text and information an AI model learned from. Models generally do not know about events after their training cutoff and may reflect biases present in that data."
+    },
+    {
+      "term": "Bias",
+      "aliases": ["algorithmic bias"],
+      "definition": "Systematic unfairness in AI outputs that can arise from patterns in training data — for example, skewed or stereotyped results for certain groups. Review outputs critically for fairness."
+    },
+    {
+      "term": "Confabulation",
+      "aliases": ["confabulate"],
+      "definition": "Another word for hallucination — when an AI fills gaps with invented but confident-sounding details."
+    },
+    {
+      "term": "Fine-tuning",
+      "aliases": ["fine-tune", "fine tuned"],
+      "definition": "Further training a base AI model on additional, specialized data so it performs better on a specific task or domain. ATLAS's Advisor is prompt-based, not fine-tuned."
+    },
+    {
+      "term": "Token",
+      "aliases": ["tokens"],
+      "definition": "The small chunks of text (roughly word-pieces) an AI model reads and generates. Context windows and usage are often measured in tokens."
+    },
+    {
+      "term": "Data classification",
+      "aliases": ["data sensitivity", "sensitive data"],
+      "definition": "How U-M categorizes information by sensitivity (for example, public vs. confidential or regulated). The classification determines which tools and handling practices are allowed."
+    }
+  ]
+}

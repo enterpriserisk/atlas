@@ -1,0 +1,32 @@
+---
+title: "Protecting sensitive data in prompts"
+category: "Data Analysis"
+tags: ["confidentiality", "data-sensitivity", "privacy"]
+aiToolsReferenced: ["um-gpt", "um-maizey"]
+humanReviewRequired: "Yes"
+lastUpdated: "2026-01-15"
+author: "ERO (draft)"
+summary: "Know your data's classification and use only approved tools. Anonymize or omit sensitive details whenever the task allows."
+draft: true
+---
+
+## When to use this
+
+Any task where the material might include personal, health, financial, or otherwise regulated or confidential information. What you put into a prompt matters as much as what you get out.
+
+## How to do it well
+
+- Identify the data's classification before choosing a tool.
+- Use only tools approved for that classification (confirm current guidance with ITS).
+- Remove or anonymize identifiers when they aren't needed for the task.
+- When unsure, summarize in the aggregate and leave specifics out.
+
+## Watch out for
+
+- Pasting spreadsheets or records with identifying columns into a general tool.
+- Assuming a "private" or "enterprise" mode is automatically approved for all data.
+- Credentials, keys, or passwords appearing in prompts.
+
+## Example
+
+Instead of pasting a roster with names and IDs to analyze trends, you remove the identifying columns and ask only about the aggregate patterns — getting the insight without exposing personal data.

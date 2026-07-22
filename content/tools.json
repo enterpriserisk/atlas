@@ -1,0 +1,85 @@
+{
+  "_comment": "Tool directory entries. Editable by non-engineers. `universityProvided: true` marks tools provided/endorsed by U-M. Any tool with universityProvided:false MUST render the non-University warning wherever it appears. `approvalStatusNote` is intentionally soft-coded because university-approved status can change — keep it current. DRAFT placeholder content: confirm all details against current U-M/ITS guidance before relying on it.",
+  "tools": [
+    {
+      "id": "um-gpt",
+      "name": "U-M GPT",
+      "universityProvided": true,
+      "label": "University-provided",
+      "shortDescription": "U-M's secure, general-purpose generative AI chat built on leading foundation models, with university data protections.",
+      "approvedFor": [
+        "Drafting and editing non-sensitive text",
+        "Brainstorming and summarizing",
+        "Explaining concepts and general Q&A"
+      ],
+      "dataSensitivityNote": "Offers stronger data protections than public consumer chatbots. Confirm current data-handling guidance in ITS documentation before entering any sensitive, regulated, or confidential information.",
+      "strengths": [
+        "Free for U-M staff and students",
+        "University data protections vs. public tools",
+        "General-purpose and easy to access with U-M credentials"
+      ],
+      "limitations": [
+        "Not a substitute for authoritative sources; can still hallucinate",
+        "Approved data-sensitivity level should be confirmed for regulated data",
+        "Not specialized for any single domain"
+      ],
+      "bestFor": "Everyday drafting, summarizing, and general questions where no confidential data is involved.",
+      "accessPath": "Sign in with your U-M credentials at the U-M GPT service (see ITS AI services page for the current URL).",
+      "relatedPlaybookTags": ["drafting", "summarization"],
+      "draft": true
+    },
+    {
+      "id": "um-maizey",
+      "name": "U-M Maizey",
+      "universityProvided": true,
+      "label": "University-provided",
+      "shortDescription": "U-M's tool for building custom AI assistants grounded in your own documents and data sources (retrieval-augmented).",
+      "approvedFor": [
+        "Answering questions over a defined set of your own documents",
+        "Building a project- or team-specific assistant",
+        "Summarizing and searching curated internal content"
+      ],
+      "dataSensitivityNote": "Because Maizey can be pointed at your own data sources, be especially deliberate about what you upload. Confirm the data classification allowed for your project in current ITS guidance.",
+      "strengths": [
+        "Grounds answers in your provided sources (reduces hallucination)",
+        "Customizable per project or team",
+        "University-provided with U-M data protections"
+      ],
+      "limitations": [
+        "Quality depends on the quality/scope of the sources you provide",
+        "Setup effort to curate and maintain the knowledge base",
+        "Still requires verification of outputs"
+      ],
+      "bestFor": "Question-answering and summarization grounded in a specific, curated set of documents you control.",
+      "accessPath": "Access Maizey with your U-M credentials via the ITS AI services page; create a project and add your data sources.",
+      "relatedPlaybookTags": ["research", "summarization", "rag"],
+      "draft": true
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "universityProvided": true,
+      "label": "University-provided",
+      "shortDescription": "Google's generative AI, available to U-M under the Google Workspace agreement. Approval scope can change — confirm current status.",
+      "approvedFor": [
+        "Drafting and summarizing within approved Google Workspace contexts",
+        "General assistance integrated with Google tools"
+      ],
+      "dataSensitivityNote": "Availability and approved data classifications depend on the current U-M Google Workspace agreement. Do not assume a data level — confirm current approval status in the Tool Directory / ITS guidance before use.",
+      "strengths": [
+        "Integrated with Google Workspace apps many staff already use",
+        "Strong general capabilities",
+        "Covered under an existing university agreement"
+      ],
+      "limitations": [
+        "Approval scope and data-handling terms can change over time",
+        "Confirm current U-M approval status before relying on it",
+        "General-purpose; verify outputs"
+      ],
+      "bestFor": "General drafting and assistance for staff already working inside Google Workspace, once current approval status is confirmed.",
+      "accessPath": "Available through U-M Google Workspace where enabled; confirm current access and approval status with ITS.",
+      "relatedPlaybookTags": ["drafting", "summarization"],
+      "draft": true
+    }
+  ]
+}
