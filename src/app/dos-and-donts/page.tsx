@@ -45,7 +45,11 @@ export default function DosAndDontsPage() {
           />
         </div>
 
-        <Accordion items={items} defaultOpen={sections[0] ? [sections[0].id] : []} />
+        <Accordion
+          items={items}
+          headingLevel="h2"
+          defaultOpen={sections[0] ? [sections[0].id] : []}
+        />
 
         <ReviewFooter lastReviewedByERO={lastReviewedByERO} draftCount={sections.filter((s) => s.draft).length} />
       </div>

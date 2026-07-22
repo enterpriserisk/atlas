@@ -95,7 +95,7 @@ export default function Home() {
                 <h2 id="recent-heading" className="text-2xl font-bold text-um-blue">
                   Recently added
                 </h2>
-                <p className="mt-1 text-sm text-um-stone">
+                <p className="mt-1 text-sm text-um-black-metallic">
                   ATLAS grows as staff contribute. Here&apos;s the latest guidance.
                 </p>
               </div>
@@ -117,7 +117,9 @@ export default function Home() {
                       <h3 className="mt-2 text-base font-semibold text-um-blue">{entry.title}</h3>
                       <p className="mt-1 flex-1 text-sm text-um-black-metallic">{entry.summary}</p>
                       {entry.lastUpdated && (
-                        <span className="mt-3 text-xs text-um-stone">Updated {entry.lastUpdated}</span>
+                        <span className="mt-3 text-xs text-um-black-metallic">
+                          Updated {entry.lastUpdated}
+                        </span>
                       )}
                     </CardBody>
                   </Card>

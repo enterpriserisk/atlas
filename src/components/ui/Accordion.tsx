@@ -23,6 +23,8 @@ interface AccordionProps {
   allowMultiple?: boolean;
   /** IDs of panels open on first render. */
   defaultOpen?: string[];
+  /** Heading level for each section title, to preserve document outline. Default "h3". */
+  headingLevel?: "h2" | "h3" | "h4";
   className?: string;
 }
 
@@ -30,6 +32,7 @@ export function Accordion({
   items,
   allowMultiple = true,
   defaultOpen = [],
+  headingLevel: Heading = "h3",
   className,
 }: AccordionProps) {
   const [open, setOpen] = useState<Set<string>>(new Set(defaultOpen));
@@ -56,7 +59,7 @@ export function Accordion({
         const panelId = `${baseId}-${item.id}-panel`;
         return (
           <div key={item.id}>
-            <h3>
+            <Heading>
               <button
                 type="button"
                 id={headerId}
@@ -79,7 +82,7 @@ export function Accordion({
                   ▾
                 </span>
               </button>
-            </h3>
+            </Heading>
             <div
               id={panelId}
               role="region"

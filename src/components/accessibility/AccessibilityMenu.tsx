@@ -5,7 +5,9 @@ import { useAccessibility, type FontScale } from "./AccessibilityProvider";
 
 /**
  * Header accessibility control: toggle high-legibility font and adjust text size.
- * Fully keyboard-operable with ARIA; closes on Escape or outside click.
+ * Implemented as a button-triggered dialog (not an ARIA menu — its contents are form
+ * controls, not menuitems). Fully keyboard-operable: focus moves into the panel on open
+ * and returns to the trigger on close; Escape and outside-click dismiss.
  */
 
 const SCALE_OPTIONS: { value: FontScale; label: string }[] = [
@@ -18,6 +20,20 @@ export function AccessibilityMenu() {
   const { legibleFont, fontScale, toggleLegibleFont, setFontScale } = useAccessibility();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  // Focus management: move focus into the panel on open, restore to trigger on close.
+  useEffect(() => {
+    if (open) {
+      panelRef.current?.querySelector<HTMLElement>("button, [href], select")?.focus();
+    }
+  }, [open]);
+
+  function close() {
+    setOpen(false);
+    triggerRef.current?.focus();
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -27,7 +43,7 @@ export function AccessibilityMenu() {
       }
     }
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") close();
     }
     document.addEventListener("mousedown", onClick);
     document.addEventListener("keydown", onKey);
@@ -40,10 +56,11 @@ export function AccessibilityMenu() {
   return (
     <div ref={containerRef} className="relative">
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        aria-haspopup="true"
+        aria-haspopup="dialog"
         aria-label="Accessibility options"
         className="inline-flex items-center gap-2 rounded-md border border-white/25 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-maize"
       >
@@ -56,21 +73,21 @@ export function AccessibilityMenu() {
 
       {open && (
         <div
-          role="menu"
+          ref={panelRef}
+          role="dialog"
           aria-label="Accessibility options"
           className="absolute right-0 z-50 mt-2 w-64 rounded-lg border border-border-subtle bg-white p-4 text-um-black-metallic shadow-lg"
         >
           <fieldset className="mb-4">
             <legend className="mb-2 text-sm font-semibold">Text size</legend>
-            <div className="flex gap-1" role="radiogroup" aria-label="Text size">
+            <div className="flex gap-1">
               {SCALE_OPTIONS.map((opt) => {
                 const active = fontScale === opt.value;
                 return (
                   <button
                     key={opt.value}
                     type="button"
-                    role="radio"
-                    aria-checked={active}
+                    aria-pressed={active}
                     onClick={() => setFontScale(opt.value)}
                     className={`flex-1 rounded-md border px-2 py-1.5 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-blue ${
                       active

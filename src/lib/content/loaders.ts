@@ -2,6 +2,7 @@ import "server-only";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { slugifyTerm } from "./types";
 import type {
   DosDontsContent,
   GlossaryTerm,
@@ -108,7 +109,7 @@ export function buildSearchIndex(): SearchRecord[] {
   for (const g of getGlossary()) {
     records.push({
       type: "glossary",
-      href: `/glossary#${encodeURIComponent(g.term.toLowerCase())}`,
+      href: `/glossary#${slugifyTerm(g.term)}`,
       title: g.term,
       text: [g.term, ...(g.aliases ?? []), g.definition].join(" "),
     });

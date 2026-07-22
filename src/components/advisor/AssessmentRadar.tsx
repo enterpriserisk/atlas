@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import {
   Radar,
   RadarChart,
@@ -21,6 +22,7 @@ import type { AxisScore } from "@/lib/advisor/types";
  */
 export function AssessmentRadar({ axes }: { axes: AxisScore[] }) {
   const [showTable, setShowTable] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   const data = axes.map((a) => ({ dimension: a.label, score: a.score }));
 
@@ -61,7 +63,7 @@ export function AssessmentRadar({ axes }: { axes: AxisScore[] }) {
                   strokeWidth={2}
                   fill="#2F65A7"
                   fillOpacity={0.5}
-                  isAnimationActive={true}
+                  isAnimationActive={!reduceMotion}
                   label={{ fill: "#00274C", fontSize: 12, fontWeight: 700 }}
                 />
               </RadarChart>

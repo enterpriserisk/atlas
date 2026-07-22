@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { GlossaryTerm } from "@/lib/content/types";
+import { slugifyTerm, type GlossaryTerm } from "@/lib/content/types";
 
 /**
  * GlossaryList — alphabetized, filterable term/definition list.
@@ -49,7 +49,7 @@ export function GlossaryList({ terms }: { terms: GlossaryTerm[] }) {
           {filtered.map((t) => (
             <div
               key={t.term}
-              id={t.term.toLowerCase()}
+              id={slugifyTerm(t.term)}
               className="scroll-mt-24 rounded-lg border border-border-subtle bg-white p-5 shadow-sm target:ring-2 target:ring-um-maize"
             >
               <dt className="text-lg font-semibold text-um-blue">{t.term}</dt>

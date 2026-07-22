@@ -50,6 +50,7 @@ export function StepTools({
                         value={tool.id}
                         checked={selected}
                         onChange={() => onSelect(tool.id)}
+                        aria-label={tool.name}
                         className="h-4 w-4 accent-um-blue"
                       />
                       <span className="text-lg font-bold text-um-blue">{tool.name}</span>

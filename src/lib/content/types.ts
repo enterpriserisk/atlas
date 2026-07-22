@@ -1,5 +1,15 @@
 /** Shared content types for ATLAS's file-based "living resource" content. */
 
+/** Slugify a term into a valid HTML id / URL fragment (no spaces). Shared so anchors and
+ *  the links that target them always agree. */
+export function slugifyTerm(term: string): string {
+  return term
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 /** Human-review requirement used on playbook entries and tool/task assessments. */
 export type ReviewRequirement = "Yes" | "No" | "Conditional";
 

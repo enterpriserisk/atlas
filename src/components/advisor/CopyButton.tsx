@@ -18,8 +18,20 @@ export function CopyButton({ text, label = "Copy" }: { text: string; label?: str
   }
 
   return (
-    <Button variant="secondary" size="sm" onClick={copy} aria-live="polite">
-      {copied ? "✓ Copied" : label}
-    </Button>
+    <span className="inline-flex items-center gap-2">
+      <Button variant="secondary" size="sm" onClick={copy}>
+        {copied ? (
+          <>
+            <span aria-hidden="true">✓</span> Copied
+          </>
+        ) : (
+          label
+        )}
+      </Button>
+      {/* Announce the result in a dedicated status region, not on the button itself. */}
+      <span className="sr-only" role="status">
+        {copied ? "Copied to clipboard" : ""}
+      </span>
+    </span>
   );
 }

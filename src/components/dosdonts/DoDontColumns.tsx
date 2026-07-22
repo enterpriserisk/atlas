@@ -53,7 +53,7 @@ function DoDontList({
 }) {
   return (
     <section className={cn("rounded-md p-4", className)} aria-label={`${heading} list`}>
-      <h4 className="mb-3 flex items-center gap-2 text-base font-bold text-um-black-metallic">
+      <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-um-black-metallic">
         <span
           aria-hidden="true"
           className={cn(
@@ -64,7 +64,7 @@ function DoDontList({
           {icon}
         </span>
         {heading}
-      </h4>
+      </h3>
       <ul className="space-y-2">
         {items.map((item, i) => (
           <li key={i} className="flex gap-2 text-sm leading-relaxed text-um-black-metallic">

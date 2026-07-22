@@ -39,6 +39,7 @@ export function StepIntake({
         onChange={(e) => onChange({ ...input, description: e.target.value })}
         rows={5}
         placeholder="e.g., Draft a summary of last week's risk committee meeting for my team."
+        aria-describedby={canProceed ? undefined : "task-description-hint"}
         className="mt-4 w-full rounded-lg border border-border-subtle bg-white px-4 py-3 text-base shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-blue"
       />
 
@@ -133,7 +134,7 @@ export function StepIntake({
         </Button>
       </div>
       {!canProceed && (
-        <p className="mt-2 text-right text-xs text-um-stone">
+        <p id="task-description-hint" className="mt-2 text-right text-xs text-um-stone">
           Enter a short description to continue.
         </p>
       )}

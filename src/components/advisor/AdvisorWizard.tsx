@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Stepper, AiAssistedNotice } from "@/components/ui";
 import type { Step } from "@/components/ui";
@@ -63,13 +63,27 @@ export function AdvisorWizard({ tools }: { tools: Tool[] }) {
     [assessment, selectedTool, input, answers],
   );
 
+  const stepRegionRef = useRef<HTMLDivElement>(null);
+  // Skip focus-move on the very first render; only move focus on actual step changes.
+  const mounted = useRef(false);
+
   function go(to: number) {
     setStepIndex(Math.max(0, Math.min(STEPS.length - 1, to)));
-    // Move focus/scroll to the top of the wizard for keyboard + screen-reader users.
-    if (typeof document !== "undefined") {
-      document.getElementById("advisor-step-region")?.scrollIntoView({ block: "start" });
-    }
   }
+
+  // After the new step mounts, move focus to the step region so keyboard and screen-reader
+  // users land on the new content (not stranded on an unmounted button or at <body>).
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    const region = stepRegionRef.current;
+    if (region) {
+      region.focus({ preventScroll: true });
+      region.scrollIntoView({ block: "start" });
+    }
+  }, [stepIndex]);
 
   const transition = reduceMotion
     ? { duration: 0 }
@@ -79,12 +93,18 @@ export function AdvisorWizard({ tools }: { tools: Tool[] }) {
     <div>
       <Stepper steps={STEPS} current={stepIndex} className="mb-8" />
 
+      {/* Small, dedicated status announcer — narrates just the step change, not the whole subtree. */}
+      <p className="sr-only" role="status">
+        {`Step ${stepIndex + 1} of ${STEPS.length}: ${STEPS[stepIndex].label}`}
+      </p>
+
       <div
+        ref={stepRegionRef}
         id="advisor-step-region"
-        role="region"
-        aria-live="polite"
+        tabIndex={-1}
+        role="group"
         aria-label={`Step ${stepIndex + 1} of ${STEPS.length}: ${STEPS[stepIndex].label}`}
-        className="scroll-mt-24"
+        className="scroll-mt-24 focus:outline-none"
       >
         <AnimatePresence mode="wait">
           <motion.div
