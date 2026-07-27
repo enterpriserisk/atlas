@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Badge, NonUniversityToolBadge } from "@/components/ui";
-import type { ToolRecommendation } from "@/lib/advisor/recommendTools";
+import type { ToolRecommendation } from "@/lib/advisor/types";
 
 /**
  * Step 3 — Tool Options. Comparison cards with pros/cons and a "why this fits your task"

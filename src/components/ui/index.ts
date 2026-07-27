@@ -12,3 +12,4 @@ export { Stepper } from "./Stepper";
 export type { Step } from "./Stepper";
 export { PageHeader } from "./PageHeader";
 export { DraftTag } from "./DraftTag";
+export { Spinner } from "./Spinner";

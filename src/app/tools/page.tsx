@@ -6,7 +6,7 @@ import { getTools } from "@/lib/content/loaders";
 export const metadata: Metadata = {
   title: "Tool Directory",
   description:
-    "Reference cards for AI tools available to U-M Enterprise Risk Office staff: what each is approved for, data-sensitivity notes, strengths, and limitations.",
+    "Reference cards for AI tools available to U-M Enterprise Risk Management staff: what each is approved for, data-sensitivity notes, strengths, and limitations.",
 };
 
 export default function ToolsPage() {

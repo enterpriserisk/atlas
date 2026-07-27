@@ -1,4 +1,5 @@
 /** Types for the AI Task Advisor decision engine. */
+import type { Tool } from "@/lib/content/types";
 
 /** Structured intake from Step 1. Free-text description + optional structured fields. */
 export interface TaskInput {
@@ -63,4 +64,12 @@ export interface Assessment {
     status: ReviewStatus;
     reason: string;
   };
+}
+
+/** A ranked tool suggestion for the task, returned by POST /api/advisor/assess. */
+export interface ToolRecommendation {
+  tool: Tool;
+  /** Higher = better fit. */
+  score: number;
+  fitReason: string;
 }

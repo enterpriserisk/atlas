@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -7,9 +8,10 @@ import { primaryNav } from "@/lib/navigation";
 import { AccessibilityMenu } from "@/components/accessibility/AccessibilityMenu";
 
 /**
- * Site header: Michigan Blue chrome with a text wordmark (NO Block M / Seal per brand
- * trademark rules), primary nav with maize active-state underline, accessibility menu,
- * and a responsive mobile menu.
+ * Site header: Michigan Blue chrome with the official U-M Block M mark (transparent
+ * artwork, sits directly on the navy — no matting needed) beside the ATLAS wordmark,
+ * primary nav with maize active-state underline, accessibility menu, and a responsive
+ * mobile menu.
  */
 
 function isActive(pathname: string, href: string) {
@@ -27,16 +29,21 @@ export function SiteHeader() {
         {/* Wordmark */}
         <Link
           href="/"
-          className="group flex flex-col leading-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-maize"
+          className="group flex items-center gap-2.5 leading-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-maize"
         >
+          <Image
+            src="/brand/block-m.png"
+            alt=""
+            width={1161}
+            height={830}
+            className="h-8 w-auto shrink-0"
+            priority
+          />
           <span
             className="text-2xl font-extrabold tracking-tight text-white"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             ATLAS
-          </span>
-          <span className="mt-0.5 text-[0.7rem] font-medium uppercase tracking-wide text-um-maize">
-            University of Michigan · Enterprise Risk Office
           </span>
         </Link>
 
@@ -50,7 +57,7 @@ export function SiteHeader() {
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`relative rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-maize ${
+                    className={`relative whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-maize ${
                       active ? "text-um-maize" : "text-white"
                     }`}
                   >

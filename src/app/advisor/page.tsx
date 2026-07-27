@@ -6,7 +6,7 @@ import { getTools } from "@/lib/content/loaders";
 export const metadata: Metadata = {
   title: "AI Task Advisor",
   description:
-    "Answer a few questions and ATLAS will assess whether AI fits your task, which tool to use, and generate a ready-to-use prompt — with a transparent, auditable scoring engine.",
+    "Answer a few questions and ATLAS will assess whether AI fits your task, which tool to use, and generate a ready-to-use prompt — powered by an AI model via Groq.",
 };
 
 export default function AdvisorPage() {
@@ -17,7 +17,7 @@ export default function AdvisorPage() {
       <PageHeader
         eyebrow="AI Task Advisor"
         title="Should AI help with this task?"
-        description="A guided assessment that scores your task, recommends a tool, and builds a ready-to-use prompt. Transparent and auditable — no data leaves your browser."
+        description="A guided assessment that scores your task, recommends a tool, and builds a ready-to-use prompt. Powered by an AI model via Groq — your task description is sent to Groq to generate the assessment, so avoid confidential or personal details."
       />
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <AdvisorWizard tools={tools} />

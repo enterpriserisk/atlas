@@ -10,12 +10,12 @@ export interface NavItem {
 export const primaryNav: NavItem[] = [
   { href: "/playbook", label: "Playbook", description: "Searchable guidance library" },
   { href: "/advisor", label: "AI Task Advisor", description: "Should AI help with this task?" },
-  { href: "/dos-and-donts", label: "Do's & Don'ts", description: "Responsible-use standards" },
+  { href: "/best-practices", label: "Best Practices", description: "Responsible-use standards" },
   { href: "/tools", label: "Tool Directory", description: "Approved AI tools" },
-  { href: "/glossary", label: "Glossary", description: "Plain-language AI terms" },
+  { href: "/directory", label: "Resource Directory", description: "Shared by ERM staff" },
 ];
 
 export const secondaryNav: NavItem[] = [
-  { href: "/contribute", label: "Contribute", description: "Add to the playbook" },
+  { href: "/contribute", label: "Contribute", description: "Add a playbook entry or directory resource" },
   { href: "/about", label: "About ATLAS", description: "Purpose & ownership" },
 ];

@@ -7,11 +7,11 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 
 export const metadata: Metadata = {
   title: {
-    default: "ATLAS — U-M Enterprise Risk Office AI Playbook",
+    default: "ATLAS — U-M Enterprise Risk Management AI Playbook",
     template: "%s · ATLAS",
   },
   description:
-    "ATLAS (Actionable Tooling, Libraries, Automation & Standards) — a living resource from the University of Michigan Enterprise Risk Office to help staff use AI effectively, consistently, and responsibly.",
+    "ATLAS (Actionable Tooling, Libraries, Automation & Standards) — a living resource from the University of Michigan Enterprise Risk Management to help staff use AI effectively, consistently, and responsibly.",
 };
 
 export default function RootLayout({

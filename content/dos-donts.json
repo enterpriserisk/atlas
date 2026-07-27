@@ -1,11 +1,11 @@
 {
-  "_comment": "Do's and Don'ts reference, fully data-driven. Each section renders as an accordion panel with a Do list (green) and Don't list (red), plus one example scenario. ALL content below is DRAFT placeholder reflecting general enterprise-risk / higher-ed best practice — ERO subject-matter experts must review and finalize. Set a section's \"draft\" to false once approved to hide its Draft tag.",
-  "lastReviewedByERO": null,
+  "_comment": "Best Practices reference, fully data-driven. Each section renders as an accordion panel with a Do list (green) and Don't list (red), plus one example scenario. Reviewed and approved by ERM subject-matter experts as of lastReviewedByERM. Set a section's \"draft\" back to true if it needs re-review (shows a Draft tag until cleared).",
+  "lastReviewedByERM": "2026-07-27",
   "sections": [
     {
       "id": "appropriate-uses",
       "title": "Appropriate Uses of AI",
-      "draft": true,
+      "draft": false,
       "dos": [
         "Use AI to draft, brainstorm, summarize, and reorganize non-sensitive material.",
         "Use it to get unstuck — outlines, first drafts, alternative phrasings.",
@@ -23,7 +23,7 @@
     {
       "id": "human-review",
       "title": "When Human Review Is Required",
-      "draft": true,
+      "draft": false,
       "dos": [
         "Require human review for anything external-facing, high-impact, or decision-critical.",
         "Have a knowledgeable person verify facts, figures, names, and citations.",
@@ -41,7 +41,7 @@
     {
       "id": "confidential-information",
       "title": "Protecting Confidential Information",
-      "draft": true,
+      "draft": false,
       "dos": [
         "Know your data's classification before using any AI tool with it.",
         "Use only tools approved for that data classification.",
@@ -59,7 +59,7 @@
     {
       "id": "citation-practices",
       "title": "Citation Practices",
-      "draft": true,
+      "draft": false,
       "dos": [
         "Disclose when AI meaningfully assisted in producing content, per local norms.",
         "Cite the original, authoritative source — not the AI tool — for facts.",
@@ -77,7 +77,7 @@
     {
       "id": "fact-checking",
       "title": "Fact-Checking Procedures",
-      "draft": true,
+      "draft": false,
       "dos": [
         "Independently verify every factual claim, statistic, name, and date.",
         "Cross-check against authoritative primary sources.",
@@ -95,7 +95,7 @@
     {
       "id": "avoiding-hallucinations",
       "title": "Avoiding AI Hallucinations",
-      "draft": true,
+      "draft": false,
       "dos": [
         "Ground the tool in your own trusted sources when possible (e.g., U-M Maizey).",
         "Ask the tool to indicate uncertainty or cite where a claim came from.",
@@ -113,7 +113,7 @@
     {
       "id": "writing-quality",
       "title": "Writing Quality Standards",
-      "draft": true,
+      "draft": false,
       "dos": [
         "Edit AI drafts for accuracy, tone, and your own voice.",
         "Ensure clarity, correct terminology, and appropriate reading level.",
@@ -131,7 +131,7 @@
     {
       "id": "ethical-considerations",
       "title": "Ethical Considerations",
-      "draft": true,
+      "draft": false,
       "dos": [
         "Consider fairness, bias, and who could be affected by the output.",
         "Be transparent about AI use where people would reasonably expect it.",
