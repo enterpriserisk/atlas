@@ -5,13 +5,14 @@ import { DoDontColumns } from "@/components/dosdonts/DoDontColumns";
 import { getDosDonts } from "@/lib/content/loaders";
 
 export const metadata: Metadata = {
-  title: "Do's & Don'ts",
+  title: "Best Practices",
   description:
-    "Responsible-AI-use standards for U-M Enterprise Risk Office staff: appropriate uses, human review, confidentiality, citations, fact-checking, and ethics.",
+    "Responsible-AI-use standards for U-M Enterprise Risk Management staff: appropriate uses, human review, confidentiality, citations, fact-checking, and ethics.",
 };
 
-export default function DosAndDontsPage() {
-  const { sections, lastReviewedByERO } = getDosDonts();
+export default function BestPracticesPage() {
+  const { sections, lastReviewedByERM } = getDosDonts();
+  const draftCount = sections.filter((s) => s.draft).length;
 
   const items: AccordionItem[] = sections.map((section) => ({
     id: section.id,
@@ -34,14 +35,18 @@ export default function DosAndDontsPage() {
     <>
       <PageHeader
         eyebrow="Responsible-use standards"
-        title="Do's and Don'ts"
-        description="Clear standards for using AI responsibly at the Enterprise Risk Office. Expand any section for practical do's, don'ts, and a real-world example."
+        title="Best Practices"
+        description="Clear standards for using AI responsibly within Enterprise Risk Management. Expand any section for practical do's, don'ts, and a real-world example."
       />
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <div className="mb-6">
           <AiAssistedNotice
             variant="banner"
-            message="These standards are working guidance and must be applied with human judgment. Draft sections are pending review by ERO subject-matter experts."
+            message={
+              draftCount > 0
+                ? "These standards are working guidance and must be applied with human judgment. Draft sections are pending review by ERM subject-matter experts."
+                : "These standards are working guidance and must be applied with human judgment."
+            }
           />
         </div>
 
@@ -51,31 +56,36 @@ export default function DosAndDontsPage() {
           defaultOpen={sections[0] ? [sections[0].id] : []}
         />
 
-        <ReviewFooter lastReviewedByERO={lastReviewedByERO} draftCount={sections.filter((s) => s.draft).length} />
+        <ReviewFooter lastReviewedByERM={lastReviewedByERM} draftCount={draftCount} />
       </div>
     </>
   );
 }
 
 function ReviewFooter({
-  lastReviewedByERO,
+  lastReviewedByERM,
   draftCount,
 }: {
-  lastReviewedByERO: string | null;
+  lastReviewedByERM: string | null;
   draftCount: number;
 }) {
   return (
     <footer className="mt-8 border-t border-border-subtle pt-4 text-sm text-um-stone">
-      {lastReviewedByERO ? (
+      {lastReviewedByERM ? (
         <p>
-          Last reviewed by ERO on{" "}
-          <span className="font-medium text-um-black-metallic">{lastReviewedByERO}</span>.
+          Last reviewed by ERM on{" "}
+          <span className="font-medium text-um-black-metallic">{lastReviewedByERM}</span>.
         </p>
       ) : (
         <p>
-          <span className="font-semibold text-[#7a3406]">Not yet reviewed by ERO.</span> This page
-          contains {draftCount} draft {draftCount === 1 ? "section" : "sections"} of placeholder
-          guidance pending subject-matter review.
+          <span className="font-semibold text-[#7a3406]">Not yet reviewed by ERM.</span>
+          {draftCount > 0 && (
+            <>
+              {" "}
+              This page contains {draftCount} draft {draftCount === 1 ? "section" : "sections"} of
+              placeholder guidance pending subject-matter review.
+            </>
+          )}
         </p>
       )}
     </footer>

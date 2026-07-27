@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui";
+import { Button, Spinner } from "@/components/ui";
 import { TASK_TYPE_LABELS, type TaskInput, type TaskType } from "@/lib/advisor/types";
 
 /**
@@ -12,10 +12,14 @@ export function StepIntake({
   input,
   onChange,
   onNext,
+  loading,
+  error,
 }: {
   input: TaskInput;
   onChange: (input: TaskInput) => void;
   onNext: () => void;
+  loading: boolean;
+  error: string | null;
 }) {
   const [showOptional, setShowOptional] = useState(
     Boolean(input.taskType || input.sensitiveData || input.audience || input.deadline),
@@ -29,6 +33,10 @@ export function StepIntake({
         In a sentence or two, tell ATLAS what you&apos;re trying to do. The more specific you are,
         the better the assessment.
       </p>
+      <p className="mt-2 text-sm text-um-stone">
+        This description is sent to Groq to power the assessment — don&apos;t include
+        confidential, regulated, or personal information.
+      </p>
 
       <label htmlFor="task-description" className="sr-only">
         Task description
@@ -40,7 +48,8 @@ export function StepIntake({
         rows={5}
         placeholder="e.g., Draft a summary of last week's risk committee meeting for my team."
         aria-describedby={canProceed ? undefined : "task-description-hint"}
-        className="mt-4 w-full rounded-lg border border-border-subtle bg-white px-4 py-3 text-base shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-blue"
+        disabled={loading}
+        className="mt-4 w-full rounded-lg border border-border-subtle bg-white px-4 py-3 text-base shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-um-blue disabled:opacity-60"
       />
 
       <button
@@ -128,12 +137,27 @@ export function StepIntake({
         </div>
       )}
 
+      {error && (
+        <p
+          role="alert"
+          className="mt-4 rounded-md border border-um-tappan-red bg-[#f6e3e0] px-3 py-2 text-sm text-um-tappan-red"
+        >
+          {error}
+        </p>
+      )}
+
       <div className="mt-8 flex justify-end">
-        <Button onClick={onNext} disabled={!canProceed} size="lg">
-          Assess this task →
+        <Button onClick={onNext} disabled={!canProceed || loading} size="lg">
+          {loading ? (
+            <>
+              <Spinner /> Assessing your task…
+            </>
+          ) : (
+            "Assess this task →"
+          )}
         </Button>
       </div>
-      {!canProceed && (
+      {!canProceed && !loading && (
         <p id="task-description-hint" className="mt-2 text-right text-xs text-um-stone">
           Enter a short description to continue.
         </p>

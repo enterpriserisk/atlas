@@ -1,9 +1,9 @@
-/** Shared content types for ATLAS's file-based "living resource" content. */
+/** Shared content types for ATLAS's file-based and database-backed "living resource" content. */
 
-/** Slugify a term into a valid HTML id / URL fragment (no spaces). Shared so anchors and
- *  the links that target them always agree. */
-export function slugifyTerm(term: string): string {
-  return term
+/** Slugify text into a valid HTML id / URL fragment (no spaces). Used for anchors and for
+ *  auto-generating playbook submission slugs from a title. */
+export function slugify(text: string): string {
+  return text
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
@@ -37,7 +37,9 @@ export interface PlaybookFrontmatter {
   draft?: boolean;
 }
 
-/** A fully loaded playbook entry: frontmatter + slug + raw markdown body. */
+/** A fully loaded playbook entry: frontmatter + slug + raw markdown body. Sourced either
+ *  from a static .mdx file or a dynamic database submission — the rest of the app doesn't
+ *  need to know which. */
 export interface PlaybookEntry extends PlaybookFrontmatter {
   slug: string;
   body: string;
@@ -59,10 +61,16 @@ export interface Tool {
   draft?: boolean;
 }
 
-export interface GlossaryTerm {
-  term: string;
-  aliases?: string[];
-  definition: string;
+/** A staff-submitted resource in the Resource Directory — not officially vetted, just
+ *  shared internally by ERM staff/interns via the access-key-gated /contribute flow. */
+export interface DirectoryResource {
+  id: number;
+  name: string;
+  url: string | null;
+  description: string;
+  tags: string[];
+  contributorLabel: string;
+  submittedAt: string;
 }
 
 export interface DosDontsSection {
@@ -75,17 +83,17 @@ export interface DosDontsSection {
 }
 
 export interface DosDontsContent {
-  lastReviewedByERO: string | null;
+  lastReviewedByERM: string | null;
   sections: DosDontsSection[];
 }
 
 /** A unified search record spanning all content types (built at build time). */
 export interface SearchRecord {
-  type: "playbook" | "tool" | "glossary";
+  type: "playbook" | "tool";
   /** Route to navigate to on selection. */
   href: string;
   title: string;
-  /** Concatenated searchable text (title + summary/definition + tags). */
+  /** Concatenated searchable text (title + summary + tags). */
   text: string;
   category?: string;
   tags?: string[];

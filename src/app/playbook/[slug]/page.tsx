@@ -5,10 +5,16 @@ import { Badge, HumanReviewBadge, DraftTag } from "@/components/ui";
 import { Markdown } from "@/components/content/Markdown";
 import { getPlaybookEntries, getPlaybookEntry, getTool } from "@/lib/content/loaders";
 
-/** Pre-render a static page for each playbook entry at build time. */
+/** Pre-render a static page for each static (.mdx-file) playbook entry at build time.
+ * Dynamically-submitted entries aren't in this list — `dynamicParams` defaults to true, so
+ * Next renders those on demand via the database fallback in getPlaybookEntry(). */
 export function generateStaticParams() {
   return getPlaybookEntries().map((e) => ({ slug: e.slug }));
 }
+
+// Always check for a fresh dynamic (database) entry rather than caching a "not found" for
+// a slug that didn't exist yet at build time, or serving stale content for one that did.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -16,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const entry = getPlaybookEntry(slug);
+  const entry = await getPlaybookEntry(slug);
   if (!entry) return { title: "Entry not found" };
   return { title: entry.title, description: entry.summary };
 }
@@ -27,7 +33,7 @@ export default async function PlaybookEntryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const entry = getPlaybookEntry(slug);
+  const entry = await getPlaybookEntry(slug);
   if (!entry) notFound();
 
   const toolNames = entry.aiToolsReferenced

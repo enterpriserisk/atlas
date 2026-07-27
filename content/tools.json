@@ -80,6 +80,217 @@
       "accessPath": "Available through U-M Google Workspace where enabled; confirm current access and approval status with ITS.",
       "relatedPlaybookTags": ["drafting", "summarization"],
       "draft": true
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT (OpenAI)",
+      "universityProvided": false,
+      "label": "External tool",
+      "shortDescription": "OpenAI's widely used generative AI chat assistant, available as a free consumer product or paid business/enterprise tiers.",
+      "approvedFor": [
+        "Personal brainstorming on clearly non-confidential topics",
+        "Drafting general, publicly-shareable text",
+        "Learning/explaining general concepts"
+      ],
+      "dataSensitivityNote": "Not University-provisioned. A personal/consumer account's data-use terms differ from an enterprise agreement. Never enter confidential, regulated, or personal data — use a University-approved tool for anything work-related and sensitive.",
+      "strengths": [
+        "Very widely used and familiar to most staff",
+        "Broad general-purpose capability",
+        "Fast iteration for casual drafting"
+      ],
+      "limitations": [
+        "Not vetted or licensed by the University for ERM work",
+        "Consumer-tier accounts may use inputs for model training unless explicitly opted out",
+        "Can hallucinate confidently; always verify outputs"
+      ],
+      "bestFor": "Personal, non-work brainstorming or drafting where nothing confidential or University-related is involved.",
+      "accessPath": "Not a University-provisioned account. If a business use case genuinely requires it, confirm with ITS whether an approved enterprise agreement exists before using it for any ERM work.",
+      "relatedPlaybookTags": ["drafting"],
+      "draft": true
+    },
+    {
+      "id": "claude",
+      "name": "Claude (Anthropic)",
+      "universityProvided": false,
+      "label": "External tool",
+      "shortDescription": "Anthropic's generative AI assistant, known for longer context windows and document-heavy work.",
+      "approvedFor": [
+        "Drafting and reviewing long, non-confidential documents",
+        "General research and brainstorming",
+        "Explaining or summarizing public materials"
+      ],
+      "dataSensitivityNote": "Not University-provisioned. Treat any input as potentially retained by the vendor under consumer terms. Do not paste confidential, regulated, or personal data.",
+      "strengths": [
+        "Handles long documents well",
+        "Strong general reasoning and writing quality",
+        "Clear, structured outputs"
+      ],
+      "limitations": [
+        "Not vetted or licensed by the University for ERM work",
+        "Consumer-tier data-use terms differ from an enterprise agreement",
+        "Still requires human verification of outputs"
+      ],
+      "bestFor": "Drafting or summarizing long, non-confidential documents when no University-provided tool is a better fit.",
+      "accessPath": "Not a University-provisioned account. Confirm with ITS whether an approved enterprise agreement exists before using it for any ERM work.",
+      "relatedPlaybookTags": ["drafting", "research"],
+      "draft": true
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "universityProvided": false,
+      "label": "External tool",
+      "shortDescription": "AI-powered search engine that answers questions with inline citations to web sources.",
+      "approvedFor": [
+        "Early-stage research on public, non-confidential topics",
+        "Finding a starting set of sources to verify independently"
+      ],
+      "dataSensitivityNote": "Not University-provisioned. Search queries are sent to a third-party service — never include confidential or regulated details in a query.",
+      "strengths": [
+        "Surfaces source citations alongside answers",
+        "Good starting point for public-information research",
+        "Fast for exploratory search"
+      ],
+      "limitations": [
+        "Cited sources still require independent verification",
+        "Not vetted or licensed by the University",
+        "Coverage and accuracy vary by topic"
+      ],
+      "bestFor": "Quick, citation-backed exploration of a public topic as a starting point — verify every source before relying on it.",
+      "accessPath": "Publicly available at perplexity.ai. No University license; use only the free tier for non-confidential, public research.",
+      "relatedPlaybookTags": ["research", "fact-checking", "citations"],
+      "draft": true
+    },
+    {
+      "id": "github-copilot",
+      "name": "GitHub Copilot",
+      "universityProvided": false,
+      "label": "External tool",
+      "shortDescription": "AI pair-programmer that suggests code completions and explanations inside a code editor.",
+      "approvedFor": [
+        "Drafting boilerplate code and test scaffolding",
+        "Explaining unfamiliar code",
+        "Speeding up routine scripting tasks"
+      ],
+      "dataSensitivityNote": "Not University-provisioned. Do not point it at proprietary, confidential, or regulated code or data unless a business-tier license and data-handling terms have been separately confirmed.",
+      "strengths": [
+        "Deep code-editor integration",
+        "Strong at boilerplate and common patterns",
+        "Mature, widely used tool"
+      ],
+      "limitations": [
+        "Not reviewed or licensed by the University for ERM work",
+        "Can suggest insecure or incorrect code — always review before running",
+        "Consumer/individual tier data-use terms may differ from business tier"
+      ],
+      "bestFor": "Individual coding or scripting tasks (e.g., a small data-processing script) where no confidential data is involved and all code is reviewed before use.",
+      "accessPath": "Not provisioned by U-M for this purpose. If you already have a personal or team license, confirm with ITS/security whether it's appropriate for ERM-related work first.",
+      "relatedPlaybookTags": [],
+      "draft": true
+    },
+    {
+      "id": "otter-ai",
+      "name": "Otter.ai",
+      "universityProvided": false,
+      "label": "External tool",
+      "shortDescription": "AI meeting transcription and summarization tool that joins calls or transcribes recordings.",
+      "approvedFor": [
+        "Transcribing and summarizing meetings with no confidential content",
+        "Generating a rough draft of meeting notes for later editing"
+      ],
+      "dataSensitivityNote": "Not University-provisioned. Meeting audio/text is processed on vendor servers. Requires informed consent from all participants, and must never be used for meetings touching confidential, regulated, or personal data.",
+      "strengths": [
+        "Saves time on manual note-taking",
+        "Decent transcription accuracy",
+        "Integrates with common calendar/video tools"
+      ],
+      "limitations": [
+        "Not vetted or licensed by the University",
+        "Raises consent and data-retention questions for every recorded meeting",
+        "Summaries still need human review for accuracy"
+      ],
+      "bestFor": "Transcribing routine, non-confidential meetings where every participant has explicitly consented to being recorded.",
+      "accessPath": "Not University-provisioned. Confirm recording-consent requirements and vendor data-retention terms before use; never use for meetings involving confidential or regulated information.",
+      "relatedPlaybookTags": ["confidentiality", "data-sensitivity"],
+      "draft": true
+    },
+    {
+      "id": "notebooklm",
+      "name": "NotebookLM (Google)",
+      "universityProvided": false,
+      "label": "External tool",
+      "shortDescription": "Google's AI research assistant that answers questions and summarizes strictly from documents you upload.",
+      "approvedFor": [
+        "Summarizing or querying a small set of your own non-confidential documents",
+        "Building a quick study guide or FAQ from source material you provide"
+      ],
+      "dataSensitivityNote": "A separate product from core Google Workspace apps — do not assume it falls under U-M's Workspace agreement. Confirm coverage with ITS before uploading any University documents; treat as external until confirmed.",
+      "strengths": [
+        "Grounds answers in the sources you upload (reduces hallucination)",
+        "Good for quickly orienting to a new document set",
+        "Free to use"
+      ],
+      "limitations": [
+        "Coverage under U-M's Google agreement is unconfirmed",
+        "Uploaded documents leave your direct control once submitted",
+        "Not vetted or licensed by the University for ERM work"
+      ],
+      "bestFor": "Summarizing or querying a small set of your own non-confidential documents, once you've confirmed whether it's covered under U-M's Google agreement.",
+      "accessPath": "Confirm with ITS whether NotebookLM is covered under U-M's Google Workspace agreement before uploading any University documents. If unconfirmed, treat it as an external tool and use only public/non-confidential material.",
+      "relatedPlaybookTags": ["research", "summarization", "rag"],
+      "draft": true
+    },
+    {
+      "id": "grammarly",
+      "name": "Grammarly",
+      "universityProvided": false,
+      "label": "External tool",
+      "shortDescription": "AI-assisted grammar, style, and tone-editing tool available as a browser extension and app integrations.",
+      "approvedFor": [
+        "Grammar and style editing of non-confidential drafts",
+        "Tone-checking before sending routine communications"
+      ],
+      "dataSensitivityNote": "Runs as a browser extension that can read text on pages you visit, including web-based email and document tools. Do not enable it on pages containing confidential, regulated, or personal information unless a University enterprise license is confirmed.",
+      "strengths": [
+        "Lightweight, works across many apps via the browser extension",
+        "Catches grammar and tone issues quickly",
+        "Widely used and familiar"
+      ],
+      "limitations": [
+        "University enterprise licensing is unconfirmed — treat as external until verified",
+        "Free tier sends page text to Grammarly's servers",
+        "Not a substitute for careful proofreading"
+      ],
+      "bestFor": "Light grammar and tone editing of non-confidential drafts; confirm with ITS whether a University enterprise license exists before broader use.",
+      "accessPath": "Confirm with ITS whether U-M has an enterprise Grammarly license. Absent that confirmation, treat it as an external consumer tool and disable it on any page with sensitive content.",
+      "relatedPlaybookTags": ["drafting"],
+      "draft": true
+    },
+    {
+      "id": "deepl",
+      "name": "DeepL",
+      "universityProvided": false,
+      "label": "External tool",
+      "shortDescription": "AI-powered translation tool known for high-quality, natural-sounding translations.",
+      "approvedFor": [
+        "Translating short, non-confidential text passages",
+        "Getting a quick draft translation to have reviewed by a fluent speaker"
+      ],
+      "dataSensitivityNote": "Not University-provisioned. The free tier may store and use submitted text. Never upload full documents containing confidential, regulated, or personal information.",
+      "strengths": [
+        "High translation quality across many languages",
+        "Fast for short passages",
+        "Free tier available for casual use"
+      ],
+      "limitations": [
+        "Not vetted or licensed by the University",
+        "Free tier's data-retention terms are less protective than an enterprise agreement",
+        "Machine translation still needs review by a fluent speaker for anything official"
+      ],
+      "bestFor": "Translating short, non-confidential passages as a starting draft; use a no-data-retention tier and avoid uploading full confidential documents.",
+      "accessPath": "Publicly available at deepl.com. No University license confirmed — use only for non-confidential text and prefer a paid tier with a no-data-retention policy where possible.",
+      "relatedPlaybookTags": [],
+      "draft": true
     }
   ]
 }

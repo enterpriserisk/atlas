@@ -1,14 +1,36 @@
 # Contributing content to ATLAS
 
-ATLAS is a **living resource**. Most content lives in the `/content` folder as simple
-Markdown and JSON files — you can add or update it **without touching any application code**.
-When content changes are published, the site (including search) updates automatically.
-
-You do **not** need to be a developer to contribute. Here's how each kind of content works.
+ATLAS is a **living resource** with two ways to contribute, depending on who you are.
 
 ---
 
-## 1. Add a new Playbook entry (most common)
+## For staff and interns (no developer access needed)
+
+Once ATLAS is hosted online, most people won't have file or git access — and that's fine.
+Contributing happens **on the website itself**:
+
+1. Get an access key from whoever manages ATLAS for your team (they generate one per
+   person from `/admin`).
+2. Go to `/contribute` and enter your key. It unlocks two forms:
+   - **Add a Playbook entry** — guidance, a use-case example, or a standard for others.
+   - **Add a Directory resource** — a tool or resource you've found useful, shared with the
+     rest of ERM (this is the Resource Directory at `/directory`, distinct from the
+     official Tool Directory).
+3. Fill out the form and submit. **It publishes immediately** — no review queue, no pull
+   request, no waiting.
+
+Your key is personal — don't share it. If you shouldn't have access anymore, whoever
+manages ATLAS can revoke your specific key from `/admin` without affecting anyone else's.
+
+---
+
+## For developers (repo access)
+
+If you have git access, the Playbook, Tool Directory, and Best Practices can still be
+edited directly as files in `/content` — useful for bulk edits or anything that should ship
+with a proper code review.
+
+### Add a Playbook entry via file
 
 Playbook entries are Markdown files in `content/playbook/`.
 
@@ -32,29 +54,28 @@ Playbook entries are Markdown files in `content/playbook/`.
 4. Write the body below the frontmatter using normal Markdown (headings with `##`, bullet
    lists with `-`, etc.). See existing entries in `content/playbook/` for examples.
 
-That's it — the entry appears in the Playbook and in search automatically.
+File-based entries and web-submitted entries appear together in the Playbook automatically
+— the site merges both sources.
 
----
-
-## 2. Update the Tool Directory
+### Update the Tool Directory
 
 Edit `content/tools.json`. Each tool is one entry in the `tools` list.
 
 - Keep `universityProvided` accurate — any tool set to `false` automatically shows the
   "Not a University tool — verify before use" warning everywhere it appears.
-- `approvalStatusNote` / data-sensitivity notes are intentionally worded softly because
-  approval status can change. **Keep them current.**
+- Data-sensitivity notes are intentionally worded softly because approval status can
+  change. **Keep them current.**
 
-## 3. Update the Glossary
-
-Edit `content/glossary.json`. Add a `term`, an optional list of `aliases` (alternate
-spellings that should also trigger the tooltip), and a plain-language `definition`.
-
-## 4. Update the Do's & Don'ts
+### Update Best Practices
 
 Edit `content/dos-donts.json`. There are eight sections; each has `dos`, `donts`, and one
-`example`. Set a section's `draft` to `false` once ERO has reviewed it, and set
-`lastReviewedByERO` to the review date (`"YYYY-MM-DD"`) to update the footer note.
+`example`. Set a section's `draft` to `false` once ERM has reviewed it, and set
+`lastReviewedByERM` to the review date (`"YYYY-MM-DD"`) to update the footer note.
+
+### The Resource Directory has no file-based path
+
+Unlike the Playbook, every Resource Directory entry (`/directory`) comes from the database
+— it's exclusively staff-submitted via `/contribute`, so there's no equivalent file to edit.
 
 ---
 

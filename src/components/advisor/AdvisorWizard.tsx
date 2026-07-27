@@ -5,14 +5,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Stepper, AiAssistedNotice } from "@/components/ui";
 import type { Step } from "@/components/ui";
 import type { Tool } from "@/lib/content/types";
-import { scoreTask } from "@/lib/advisor/scoreTask";
-import { recommendTools } from "@/lib/advisor/recommendTools";
-import {
-  generatePrompt,
-  getRefinementQuestions,
-  type RefinementAnswers,
-} from "@/lib/advisor/generatePrompt";
-import type { TaskInput } from "@/lib/advisor/types";
+import { getRefinementQuestions, type RefinementAnswers, type PromptOutput } from "@/lib/advisor/generatePrompt";
+import type { Assessment, TaskInput, ToolRecommendation } from "@/lib/advisor/types";
 import { StepIntake } from "./steps/StepIntake";
 import { StepAssessment } from "./steps/StepAssessment";
 import { StepTools } from "./steps/StepTools";
@@ -22,9 +16,12 @@ import { StepResult } from "./steps/StepResult";
 
 /**
  * AdvisorWizard — the 6-step AI Task Advisor.
- * Holds all wizard state, runs the deterministic engine, and renders the current step
- * with animated transitions (respecting prefers-reduced-motion). The engine functions are
- * pure; this component only orchestrates the flow.
+ * Holds all wizard state and renders the current step with animated transitions
+ * (respecting prefers-reduced-motion). The actual assessment, tool ranking, and prompt
+ * drafting are done by an AI model via Groq, through two server routes
+ * (/api/advisor/assess and /api/advisor/prompt) — this component just calls them and holds
+ * the async/loading/error state around those two calls. No task description or answers are
+ * sent anywhere until the user explicitly advances past Step 1 or Step 5.
  */
 
 const STEPS: Step[] = [
@@ -36,6 +33,20 @@ const STEPS: Step[] = [
   { id: "result", label: "Prompt" },
 ];
 
+async function postJSON<T>(url: string, body: unknown): Promise<T> {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => null);
+  if (!res.ok) {
+    const message = (data && typeof data.error === "string" && data.error) || `Request failed (${res.status}).`;
+    throw new Error(message);
+  }
+  return data as T;
+}
+
 export function AdvisorWizard({ tools }: { tools: Tool[] }) {
   const reduceMotion = useReducedMotion();
   const [stepIndex, setStepIndex] = useState(0);
@@ -44,24 +55,17 @@ export function AdvisorWizard({ tools }: { tools: Tool[] }) {
   const [selectedToolId, setSelectedToolId] = useState<string | null>(null);
   const [answers, setAnswers] = useState<RefinementAnswers>({});
 
-  // Derived engine outputs — recomputed from inputs (deterministic, cheap).
-  const assessment = useMemo(
-    () => (input.description.trim() ? scoreTask(input) : null),
-    [input],
-  );
-  const recommendations = useMemo(
-    () => (assessment ? recommendTools(tools, input, assessment) : []),
-    [tools, input, assessment],
-  );
+  const [assessment, setAssessment] = useState<Assessment | null>(null);
+  const [recommendations, setRecommendations] = useState<ToolRecommendation[]>([]);
+  const [assessing, setAssessing] = useState(false);
+  const [assessError, setAssessError] = useState<string | null>(null);
+
+  const [promptOutput, setPromptOutput] = useState<PromptOutput | null>(null);
+  const [generating, setGenerating] = useState(false);
+  const [promptError, setPromptError] = useState<string | null>(null);
+
   const selectedTool = tools.find((t) => t.id === selectedToolId) ?? null;
   const questions = useMemo(() => getRefinementQuestions(input), [input]);
-  const promptOutput = useMemo(
-    () =>
-      assessment && selectedTool
-        ? generatePrompt({ input, assessment, tool: selectedTool, answers })
-        : null,
-    [assessment, selectedTool, input, answers],
-  );
 
   const stepRegionRef = useRef<HTMLDivElement>(null);
   // Skip focus-move on the very first render; only move focus on actual step changes.
@@ -69,6 +73,44 @@ export function AdvisorWizard({ tools }: { tools: Tool[] }) {
 
   function go(to: number) {
     setStepIndex(Math.max(0, Math.min(STEPS.length - 1, to)));
+  }
+
+  async function runAssessment() {
+    setAssessing(true);
+    setAssessError(null);
+    try {
+      const result = await postJSON<{ assessment: Assessment; recommendations: ToolRecommendation[] }>(
+        "/api/advisor/assess",
+        input,
+      );
+      setAssessment(result.assessment);
+      setRecommendations(result.recommendations);
+      go(1);
+    } catch (err) {
+      setAssessError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setAssessing(false);
+    }
+  }
+
+  async function runPrompt() {
+    if (!assessment || !selectedTool) return;
+    setGenerating(true);
+    setPromptError(null);
+    try {
+      const result = await postJSON<PromptOutput>("/api/advisor/prompt", {
+        input,
+        assessment,
+        tool: selectedTool,
+        answers,
+      });
+      setPromptOutput(result);
+      go(5);
+    } catch (err) {
+      setPromptError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setGenerating(false);
+    }
   }
 
   // After the new step mounts, move focus to the step region so keyboard and screen-reader
@@ -118,7 +160,9 @@ export function AdvisorWizard({ tools }: { tools: Tool[] }) {
               <StepIntake
                 input={input}
                 onChange={setInput}
-                onNext={() => go(1)}
+                onNext={runAssessment}
+                loading={assessing}
+                error={assessError}
               />
             )}
 
@@ -159,7 +203,9 @@ export function AdvisorWizard({ tools }: { tools: Tool[] }) {
                 answers={answers}
                 onChange={setAnswers}
                 onBack={() => go(3)}
-                onNext={() => go(5)}
+                onNext={runPrompt}
+                loading={generating}
+                error={promptError}
               />
             )}
 
@@ -174,6 +220,11 @@ export function AdvisorWizard({ tools }: { tools: Tool[] }) {
                   setInput({ description: "" });
                   setSelectedToolId(null);
                   setAnswers({});
+                  setAssessment(null);
+                  setRecommendations([]);
+                  setAssessError(null);
+                  setPromptOutput(null);
+                  setPromptError(null);
                   go(0);
                 }}
               />

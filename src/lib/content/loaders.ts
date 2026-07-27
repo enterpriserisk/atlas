@@ -2,10 +2,9 @@ import "server-only";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { slugifyTerm } from "./types";
+import { getDynamicPlaybookEntry } from "./submissions";
 import type {
   DosDontsContent,
-  GlossaryTerm,
   PlaybookEntry,
   PlaybookFrontmatter,
   SearchRecord,
@@ -54,8 +53,12 @@ export function getPlaybookEntries(): PlaybookEntry[] {
   return entries.sort((a, b) => (a.lastUpdated < b.lastUpdated ? 1 : -1));
 }
 
-export function getPlaybookEntry(slug: string): PlaybookEntry | undefined {
-  return getPlaybookEntries().find((e) => e.slug === slug);
+/** Checks static .mdx files first, then falls back to a dynamic (database) submission —
+ *  callers don't need to know which source an entry came from. */
+export async function getPlaybookEntry(slug: string): Promise<PlaybookEntry | undefined> {
+  const staticEntry = getPlaybookEntries().find((e) => e.slug === slug);
+  if (staticEntry) return staticEntry;
+  return getDynamicPlaybookEntry(slug);
 }
 
 export function getTools(): Tool[] {
@@ -64,12 +67,6 @@ export function getTools(): Tool[] {
 
 export function getTool(id: string): Tool | undefined {
   return getTools().find((t) => t.id === id);
-}
-
-export function getGlossary(): GlossaryTerm[] {
-  return readJson<{ terms: GlossaryTerm[] }>("glossary.json").terms.sort((a, b) =>
-    a.term.localeCompare(b.term),
-  );
 }
 
 export function getDosDonts(): DosDontsContent {
@@ -103,15 +100,6 @@ export function buildSearchIndex(): SearchRecord[] {
       title: t.name,
       text: [t.name, t.shortDescription, t.bestFor, ...t.relatedPlaybookTags].join(" "),
       tags: t.relatedPlaybookTags,
-    });
-  }
-
-  for (const g of getGlossary()) {
-    records.push({
-      type: "glossary",
-      href: `/glossary#${slugifyTerm(g.term)}`,
-      title: g.term,
-      text: [g.term, ...(g.aliases ?? []), g.definition].join(" "),
     });
   }
 

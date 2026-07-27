@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, ProgressBar } from "@/components/ui";
+import { Button, ProgressBar, Spinner } from "@/components/ui";
 import type { RefinementAnswers, RefinementQuestion } from "@/lib/advisor/generatePrompt";
 
 /**
@@ -13,12 +13,16 @@ export function StepRefine({
   onChange,
   onBack,
   onNext,
+  loading,
+  error,
 }: {
   questions: RefinementQuestion[];
   answers: RefinementAnswers;
   onChange: (answers: RefinementAnswers) => void;
   onBack: () => void;
   onNext: () => void;
+  loading: boolean;
+  error: string | null;
 }) {
   const answeredCount = questions.filter((q) => (answers[q.id] ?? "").trim().length > 0).length;
 
@@ -75,12 +79,27 @@ export function StepRefine({
         ))}
       </div>
 
+      {error && (
+        <p
+          role="alert"
+          className="mt-4 rounded-md border border-um-tappan-red bg-[#f6e3e0] px-3 py-2 text-sm text-um-tappan-red"
+        >
+          {error}
+        </p>
+      )}
+
       <div className="mt-8 flex items-center justify-between">
-        <Button variant="ghost" onClick={onBack}>
+        <Button variant="ghost" onClick={onBack} disabled={loading}>
           ← Back
         </Button>
-        <Button onClick={onNext} size="lg">
-          Generate my prompt →
+        <Button onClick={onNext} size="lg" disabled={loading}>
+          {loading ? (
+            <>
+              <Spinner /> Generating your prompt…
+            </>
+          ) : (
+            "Generate my prompt →"
+          )}
         </Button>
       </div>
     </div>

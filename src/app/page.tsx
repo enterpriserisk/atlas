@@ -22,8 +22,8 @@ const ENTRY_POINTS = [
     cta: "Start an assessment",
   },
   {
-    href: "/dos-and-donts",
-    title: "View the Do's & Don'ts",
+    href: "/best-practices",
+    title: "View Best Practices",
     description: "The responsible-use standards, at a glance — appropriate uses, review, and ethics.",
     cta: "See the standards",
   },
@@ -38,7 +38,7 @@ export default function Home() {
       <section className="bg-um-blue">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <p className="text-sm font-semibold uppercase tracking-wide text-um-maize">
-            University of Michigan · Enterprise Risk Office
+            University of Michigan · Enterprise Risk Management
           </p>
           <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
             Use AI effectively, consistently, and responsibly.

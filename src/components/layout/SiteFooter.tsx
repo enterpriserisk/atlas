@@ -1,9 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import { primaryNav, secondaryNav } from "@/lib/navigation";
 
 /**
- * Site footer: Michigan Blue chrome, wordmark byline, grouped navigation, and a
- * transparency note that ATLAS provides AI-use guidance requiring human judgment.
+ * Site footer: Michigan Blue chrome, the official U-M Block M mark (transparent
+ * artwork, sits directly on the navy) beside the ATLAS wordmark, grouped navigation,
+ * and a transparency note that ATLAS provides AI-use guidance requiring human judgment.
  */
 export function SiteFooter() {
   const allNav = [...primaryNav, ...secondaryNav];
@@ -13,17 +15,26 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
-            <span
-              className="text-xl font-extrabold tracking-tight"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              ATLAS
-            </span>
+            <div className="flex items-center gap-2.5">
+              <Image
+                src="/brand/block-m.png"
+                alt=""
+                width={1161}
+                height={830}
+                className="h-8 w-auto shrink-0"
+              />
+              <span
+                className="text-xl font-extrabold tracking-tight"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                ATLAS
+              </span>
+            </div>
             <p className="mt-1 text-sm text-um-maize">
               Actionable Tooling, Libraries, Automation &amp; Standards
             </p>
             <p className="mt-3 max-w-xs text-sm text-white/80">
-              A living resource from the University of Michigan Enterprise Risk Office to help
+              A living resource from the University of Michigan Enterprise Risk Management to help
               staff use AI effectively, consistently, and responsibly.
             </p>
           </div>
@@ -51,7 +62,7 @@ export function SiteFooter() {
             confirm tool approval status before use.
           </p>
           <p className="mt-2">
-            © {new Date().getFullYear()} University of Michigan Enterprise Risk Office. Internal
+            © {new Date().getFullYear()} University of Michigan Enterprise Risk Management. Internal
             tool — not an official University marketing site.
           </p>
         </div>
