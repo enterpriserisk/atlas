@@ -1,0 +1,32 @@
+---
+title: "Reviewing vendor security questionnaires"
+category: "Data Analysis"
+tags: ["vendor-risk", "security", "third-party"]
+aiToolsReferenced: ["um-maizey", "um-gpt"]
+humanReviewRequired: "Yes"
+lastUpdated: "2026-07-27"
+author: "ERM (draft)"
+summary: "Use AI to triage vendor questionnaire responses and flag gaps or inconsistent answers — but treat every flag as a starting point for expert review, not a final risk determination."
+draft: true
+---
+
+## When to use this
+
+You're reviewing a vendor's completed security or privacy questionnaire (a SIG, CAIQ, or a custom U-M form) and need to quickly identify weak or missing answers before a deeper manual review.
+
+## How to do it well
+
+- Paste the vendor's actual answers (or ground the tool in the document via U-M Maizey) — don't ask the tool to guess at "typical" vendor practices.
+- Ask it to flag specific things: blank answers, "no" answers to standard controls (encryption at rest, MFA, etc.), and any answer that contradicts another part of the form.
+- Ask for the flags organized by risk area (data protection, access control, incident response) so a reviewer can triage quickly.
+- Treat the output as a checklist of things to verify — not a scored risk rating.
+
+## Watch out for
+
+- A vendor's own answers may be incomplete or optimistic — AI can't verify a vendor is telling the truth, only flag what's on the page.
+- Don't let AI assign a final risk tier or approval recommendation; that judgment call belongs to a risk analyst.
+- Vendor questionnaires often contain proprietary or confidential information — use a University-approved tool.
+
+## Example
+
+You paste a vendor's completed security questionnaire into U-M Maizey and ask it to list every question answered "no" or left blank, grouped by risk area. You use that list to focus your manual follow-up questions instead of re-reading all 120 questions line by line.

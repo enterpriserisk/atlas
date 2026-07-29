@@ -1,0 +1,32 @@
+---
+title: "Drafting incident summary reports"
+category: "Risk Assessment"
+tags: ["incident-response", "reporting", "risk-assessment"]
+aiToolsReferenced: ["um-gpt"]
+humanReviewRequired: "Yes"
+lastUpdated: "2026-07-27"
+author: "ERM (draft)"
+summary: "AI can help structure an initial incident summary from your notes, but every fact, timeline detail, and conclusion must be verified by someone who was involved before it's shared."
+draft: true
+---
+
+## When to use this
+
+Shortly after a risk or security incident, when you need to turn raw notes, timelines, or witness accounts into a structured initial summary for internal review.
+
+## How to do it well
+
+- Provide your own factual notes as the source material; don't ask the tool to fill gaps with assumptions about what "probably" happened.
+- Ask for a standard structure — what happened, when, who was involved, immediate actions taken, and open questions — without asking it to assign fault or root cause.
+- Explicitly flag any detail you're not certain about so it's marked as unconfirmed in the draft, not stated as fact.
+- Route the draft through your normal incident-review process before it's finalized or shared beyond the immediate team.
+
+## Watch out for
+
+- Confident-sounding language can make an uncertain detail read as an established fact — watch for this especially around timelines and causes.
+- Incident details are frequently sensitive or regulated — confirm the tool and your workflow are approved for the data involved before you start.
+- Don't let a first-draft summary substitute for your organization's formal incident-response and root-cause process.
+
+## Example
+
+You give U-M GPT your timestamped notes from the first hour of an incident and ask for a structured summary with a clearly marked "unconfirmed details" section. You correct one timestamp and remove a speculative cause the tool inferred before sharing the draft with your team lead.
