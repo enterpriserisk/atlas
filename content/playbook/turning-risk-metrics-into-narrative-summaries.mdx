@@ -1,0 +1,31 @@
+---
+title: "Turning risk metrics into narrative summaries"
+category: "Data Analysis"
+tags: ["reporting", "metrics", "data-analysis"]
+aiToolsReferenced: ["um-gpt"]
+humanReviewRequired: "Yes"
+lastUpdated: "2026-07-27"
+author: "ERM (draft)"
+summary: "Have AI turn numbers you've already calculated into clear report prose — never ask it to calculate, estimate, or verify the numbers themselves."
+draft: true
+---
+
+## When to use this
+
+You have a table of metrics you've already produced — incident counts, audit findings closed, training completion rates, quarter-over-quarter trends — and need a narrative paragraph or two for a report or briefing.
+
+## How to do it well
+
+- Give the tool the actual numbers you calculated; ask only for prose describing them, not to compute or estimate anything.
+- Ask for a plain-language explanation of what changed and by how much, in a tone appropriate for the audience (see also: translating risk findings for leadership).
+- Ask the tool to flag any number in your table that looks internally inconsistent (like a percentage that doesn't add up) as a prompt to double-check — not as a correction.
+
+## Watch out for
+
+- Never ask the tool to do the arithmetic, extrapolate a trend, or fill in a missing data point — it can produce a plausible-sounding but wrong number.
+- Verify every figure in the generated narrative matches your source table exactly before it goes into a report.
+- Watch for the tool inserting comparative language ("significantly," "dramatically") that overstates a modest change.
+
+## Example
+
+You give U-M GPT a table showing incident counts fell from 42 to 31 quarter over quarter and ask for two sentences summarizing the trend for a leadership dashboard. You check that both numbers and the percentage change in the output match your table before including it.

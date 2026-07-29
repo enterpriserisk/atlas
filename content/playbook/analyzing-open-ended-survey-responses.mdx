@@ -1,0 +1,32 @@
+---
+title: "Analyzing open-ended survey responses for themes"
+category: "Data Analysis"
+tags: ["surveys", "data-analysis", "themes"]
+aiToolsReferenced: ["um-gpt", "um-maizey"]
+humanReviewRequired: "Conditional"
+lastUpdated: "2026-07-27"
+author: "ERM (draft)"
+summary: "AI can group open-ended survey responses into themes quickly, but spot-check its groupings against the actual comments before reporting them as representative."
+draft: true
+---
+
+## When to use this
+
+You've run a survey — a risk-culture survey or training feedback, for example — with open-ended comment fields and need to identify recurring themes across many responses.
+
+## How to do it well
+
+- Provide the actual response text (anonymized if it contains identifying details); ask for themes grouped with representative example quotes.
+- Ask for an approximate count of responses per theme so you can judge how common each one really is.
+- Spot-check a sample of each theme's assigned responses against the actual comments to confirm the grouping makes sense.
+- Note any comment that doesn't fit cleanly into a theme rather than forcing it into one.
+
+## Watch out for
+
+- AI can over-generalize a handful of comments into a "theme" that overstates how common the sentiment actually is.
+- Free-text survey responses may contain identifying or sensitive details — anonymize before using a general-purpose tool.
+- Don't let the tool's summary replace reading a sample of the raw comments yourself.
+
+## Example
+
+You give U-M GPT 80 anonymized comments from a training-feedback survey and ask for the top themes with counts. You spot-check the largest theme's comments, find two were miscategorized, and adjust the theme description before including it in your summary.

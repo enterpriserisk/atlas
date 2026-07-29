@@ -1,0 +1,32 @@
+---
+title: "Spotting patterns across incident and loss data"
+category: "Data Analysis"
+tags: ["incident-response", "trends", "data-analysis"]
+aiToolsReferenced: ["um-gpt", "um-maizey"]
+humanReviewRequired: "Yes"
+lastUpdated: "2026-07-27"
+author: "ERM (draft)"
+summary: "AI can help describe patterns you point it toward across a set of incidents, but treat any pattern it claims to notice on its own as a hypothesis to verify, not a finding."
+draft: true
+---
+
+## When to use this
+
+You have a set of incident records or a loss log and want help articulating patterns — common causes, recurring departments, seasonal trends — for a report or trend analysis.
+
+## How to do it well
+
+- Provide the actual incident data or a summary table; ask the tool to describe patterns you point it toward rather than "find patterns" unprompted.
+- If it does surface an observation on its own, treat it as a hypothesis and check it against the underlying records yourself.
+- Ask for the pattern description in plain language suitable for your report's audience.
+- Cross-check any claimed frequency or count against your actual data before including it.
+
+## Watch out for
+
+- Small sample sizes can produce a "pattern" that's really just noise — don't let AI-generated confidence outpace the actual data volume.
+- AI cannot verify correlation vs. causation; it may imply a cause that the data doesn't actually support.
+- Incident data is often sensitive — confirm the tool is approved for the data classification involved.
+
+## Example
+
+You give U-M Maizey a table of last year's incidents and ask it to describe any pattern in root causes by department. It suggests one department has more incidents tied to a specific process; you verify the underlying incident count is large enough to mean something before including the observation in your trend report.
