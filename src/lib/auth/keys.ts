@@ -75,3 +75,15 @@ export async function verifyContributorKey(rawKey: string): Promise<ContributorS
   if (rows.length === 0) return null;
   return { contributorId: rows[0].id, label: rows[0].label };
 }
+
+/** Re-checks a contributor's key against the database (not just the signed session
+ * cookie, which has no idea a key was revoked after the cookie was issued). Write and
+ * delete routes should call this before acting, so revoking a key actually revokes
+ * access rather than just blocking future unlocks. */
+export async function isContributorKeyActive(contributorId: number): Promise<boolean> {
+  const sql = getSql();
+  const rows = await sql`
+    SELECT id FROM contributor_keys WHERE id = ${contributorId} AND revoked_at IS NULL
+  `;
+  return rows.length > 0;
+}

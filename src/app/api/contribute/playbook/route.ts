@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getContributorSession } from "@/lib/auth/session";
+import { isContributorKeyActive } from "@/lib/auth/keys";
 import { createPlaybookSubmission } from "@/lib/content/submissions";
 import { getPlaybookEntries } from "@/lib/content/loaders";
 import { PLAYBOOK_CATEGORIES } from "@/lib/content/types";
@@ -25,6 +26,12 @@ export async function POST(req: Request) {
     return NextResponse.json(
       { error: "Enter your access key on the Contribute page first." },
       { status: 401 },
+    );
+  }
+  if (!(await isContributorKeyActive(session.contributorId))) {
+    return NextResponse.json(
+      { error: "Your access key has been revoked. Contact the site admin for a new one." },
+      { status: 403 },
     );
   }
 
@@ -73,6 +80,7 @@ export async function POST(req: Request) {
         contributorLabel: session.label,
       },
       staticSlugs,
+      session.contributorId,
     );
     return NextResponse.json({ ok: true, slug: entry.slug });
   } catch (err) {

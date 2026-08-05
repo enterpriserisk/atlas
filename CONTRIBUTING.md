@@ -14,7 +14,7 @@ Contributing happens **on the website itself**:
 2. Go to `/contribute` and enter your key. It unlocks two forms:
    - **Add a Playbook entry** — guidance, a use-case example, or a standard for others.
    - **Add a Directory resource** — a tool or resource you've found useful, shared with the
-     rest of ERM (this is the Resource Directory at `/directory`, distinct from the
+     rest of ESRM (this is the Resource Directory at `/directory`, distinct from the
      official Tool Directory).
 3. Fill out the form and submit. **It publishes immediately** — no review queue, no pull
    request, no waiting.
@@ -69,8 +69,8 @@ Edit `content/tools.json`. Each tool is one entry in the `tools` list.
 ### Update Best Practices
 
 Edit `content/dos-donts.json`. There are eight sections; each has `dos`, `donts`, and one
-`example`. Set a section's `draft` to `false` once ERM has reviewed it, and set
-`lastReviewedByERM` to the review date (`"YYYY-MM-DD"`) to update the footer note.
+`example`. Set a section's `draft` to `false` once ESRM has reviewed it, and set
+`lastReviewedByESRM` to the review date (`"YYYY-MM-DD"`) to update the footer note.
 
 ### The Resource Directory has no file-based path
 

@@ -12,7 +12,7 @@ export const primaryNav: NavItem[] = [
   { href: "/advisor", label: "AI Task Advisor", description: "Should AI help with this task?" },
   { href: "/best-practices", label: "Best Practices", description: "Responsible-use standards" },
   { href: "/tools", label: "Tool Directory", description: "Approved AI tools" },
-  { href: "/directory", label: "Resource Directory", description: "Shared by ERM staff" },
+  { href: "/directory", label: "Resource Directory", description: "Shared by ESRM staff" },
 ];
 
 export const secondaryNav: NavItem[] = [

@@ -8,7 +8,7 @@ import { PLAYBOOK_CATEGORIES } from "@/lib/content/types";
 export const metadata: Metadata = {
   title: "Playbook",
   description:
-    "Searchable library of AI-use guidance, tools, and standards for U-M Enterprise Risk Management staff.",
+    "Searchable library of AI-use guidance, tools, and standards for U-M Enterprise Strategic Risk Management staff.",
 };
 
 // Dynamic (database) entries can be added at any time via /contribute — this route must

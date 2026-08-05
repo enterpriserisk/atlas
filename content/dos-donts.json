@@ -1,6 +1,6 @@
 {
-  "_comment": "Best Practices reference, fully data-driven. Each section renders as an accordion panel with a Do list (green) and Don't list (red), plus one example scenario. Reviewed and approved by ERM subject-matter experts as of lastReviewedByERM. Set a section's \"draft\" back to true if it needs re-review (shows a Draft tag until cleared).",
-  "lastReviewedByERM": "2026-07-27",
+  "_comment": "Best Practices reference, fully data-driven. Each section renders as an accordion panel with a Do list (green) and Don't list (red), plus one example scenario. Reviewed and approved by ESRM subject-matter experts as of lastReviewedByESRM. Set a section's \"draft\" back to true if it needs re-review (shows a Draft tag until cleared).",
+  "lastReviewedByESRM": "2026-07-27",
   "sections": [
     {
       "id": "appropriate-uses",

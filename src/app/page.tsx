@@ -38,13 +38,13 @@ export default function Home() {
       <section className="bg-um-blue">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <p className="text-sm font-semibold uppercase tracking-wide text-um-maize">
-            University of Michigan · Enterprise Risk Management
+            University of Michigan · Enterprise Strategic Risk Management
           </p>
           <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
             Use AI effectively, consistently, and responsibly.
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/90">
-            ATLAS is a living playbook that helps ERM staff decide when AI fits a task, which tool
+            ATLAS is a living playbook that helps ESRM staff decide when AI fits a task, which tool
             to use, and how to use it well — with responsible-use standards built in.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">

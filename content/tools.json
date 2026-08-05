@@ -99,12 +99,12 @@
         "Fast iteration for casual drafting"
       ],
       "limitations": [
-        "Not vetted or licensed by the University for ERM work",
+        "Not vetted or licensed by the University for ESRM work",
         "Consumer-tier accounts may use inputs for model training unless explicitly opted out",
         "Can hallucinate confidently; always verify outputs"
       ],
       "bestFor": "Personal, non-work brainstorming or drafting where nothing confidential or University-related is involved.",
-      "accessPath": "Not a University-provisioned account. If a business use case genuinely requires it, confirm with ITS whether an approved enterprise agreement exists before using it for any ERM work.",
+      "accessPath": "Not a University-provisioned account. If a business use case genuinely requires it, confirm with ITS whether an approved enterprise agreement exists before using it for any ESRM work.",
       "relatedPlaybookTags": ["drafting"],
       "draft": true
     },
@@ -126,12 +126,12 @@
         "Clear, structured outputs"
       ],
       "limitations": [
-        "Not vetted or licensed by the University for ERM work",
+        "Not vetted or licensed by the University for ESRM work",
         "Consumer-tier data-use terms differ from an enterprise agreement",
         "Still requires human verification of outputs"
       ],
       "bestFor": "Drafting or summarizing long, non-confidential documents when no University-provided tool is a better fit.",
-      "accessPath": "Not a University-provisioned account. Confirm with ITS whether an approved enterprise agreement exists before using it for any ERM work.",
+      "accessPath": "Not a University-provisioned account. Confirm with ITS whether an approved enterprise agreement exists before using it for any ESRM work.",
       "relatedPlaybookTags": ["drafting", "research"],
       "draft": true
     },
@@ -179,12 +179,12 @@
         "Mature, widely used tool"
       ],
       "limitations": [
-        "Not reviewed or licensed by the University for ERM work",
+        "Not reviewed or licensed by the University for ESRM work",
         "Can suggest insecure or incorrect code — always review before running",
         "Consumer/individual tier data-use terms may differ from business tier"
       ],
       "bestFor": "Individual coding or scripting tasks (e.g., a small data-processing script) where no confidential data is involved and all code is reviewed before use.",
-      "accessPath": "Not provisioned by U-M for this purpose. If you already have a personal or team license, confirm with ITS/security whether it's appropriate for ERM-related work first.",
+      "accessPath": "Not provisioned by U-M for this purpose. If you already have a personal or team license, confirm with ITS/security whether it's appropriate for ESRM-related work first.",
       "relatedPlaybookTags": [],
       "draft": true
     },
@@ -233,7 +233,7 @@
       "limitations": [
         "Coverage under U-M's Google agreement is unconfirmed",
         "Uploaded documents leave your direct control once submitted",
-        "Not vetted or licensed by the University for ERM work"
+        "Not vetted or licensed by the University for ESRM work"
       ],
       "bestFor": "Summarizing or querying a small set of your own non-confidential documents, once you've confirmed whether it's covered under U-M's Google agreement.",
       "accessPath": "Confirm with ITS whether NotebookLM is covered under U-M's Google Workspace agreement before uploading any University documents. If unconfirmed, treat it as an external tool and use only public/non-confidential material.",

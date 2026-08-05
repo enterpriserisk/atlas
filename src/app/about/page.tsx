@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/ui";
 export const metadata: Metadata = {
   title: "About ATLAS",
   description:
-    "What ATLAS stands for, its purpose, ownership, and how it stays current — the U-M Enterprise Risk Management's living AI-use resource.",
+    "What ATLAS stands for, its purpose, ownership, and how it stays current — the U-M Enterprise Strategic Risk Management's living AI-use resource.",
 };
 
 const ACRONYM = [
@@ -21,7 +21,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="About ATLAS"
-        description="A living resource from the University of Michigan Enterprise Risk Management to help staff use AI effectively, consistently, and responsibly."
+        description="A living resource from the University of Michigan Enterprise Strategic Risk Management to help staff use AI effectively, consistently, and responsibly."
       />
       <div className="mx-auto max-w-3xl space-y-10 px-4 py-10 sm:px-6">
         <section aria-labelledby="acronym-heading">
@@ -49,7 +49,7 @@ export default function AboutPage() {
           </h2>
           <p className="mt-3 leading-relaxed text-um-black-metallic">
             ATLAS is a practical, searchable playbook for using AI in the day-to-day work of
-            Enterprise Risk Management. It helps staff decide <em>whether</em> AI is appropriate for a
+            Enterprise Strategic Risk Management. It helps staff decide <em>whether</em> AI is appropriate for a
             task, understand the <em>risks</em>, choose the right <em>tool</em>, and use it with a
             consistent set of responsible-use standards. It is designed to grow over time as staff
             and interns add guidance — without needing to be developers.
@@ -61,7 +61,7 @@ export default function AboutPage() {
             Ownership
           </h2>
           <p className="mt-3 leading-relaxed text-um-black-metallic">
-            ATLAS is owned and maintained by the University of Michigan Enterprise Risk Management.
+            ATLAS is owned and maintained by the University of Michigan Enterprise Strategic Risk Management.
           </p>
         </section>
       </div>
