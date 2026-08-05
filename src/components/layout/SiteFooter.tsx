@@ -34,7 +34,7 @@ export function SiteFooter() {
               Actionable Tooling, Libraries, Automation &amp; Standards
             </p>
             <p className="mt-3 max-w-xs text-sm text-white/80">
-              A living resource from the University of Michigan Enterprise Risk Management to help
+              A living resource from the University of Michigan Enterprise Strategic Risk Management to help
               staff use AI effectively, consistently, and responsibly.
             </p>
           </div>
@@ -62,7 +62,7 @@ export function SiteFooter() {
             confirm tool approval status before use.
           </p>
           <p className="mt-2">
-            © {new Date().getFullYear()} University of Michigan Enterprise Risk Management. Internal
+            © {new Date().getFullYear()} University of Michigan Enterprise Strategic Risk Management. Internal
             tool — not an official University marketing site.
           </p>
         </div>

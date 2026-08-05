@@ -65,6 +65,44 @@ async function main() {
   `;
   console.log("✓ directory_resources");
 
+  // Ownership (so a contributor can manage only their own submissions) and a draft flag
+  // on playbook submissions (mirrors the static .mdx "draft" convention — entries are
+  // fully visible immediately either way, this just tracks whether ESRM has reviewed
+  // it yet, clearable from the admin Drafts tab). Safe to re-run: IF NOT EXISTS guards
+  // both, so this won't touch data in tables that already have these columns.
+  await sql`
+    ALTER TABLE playbook_submissions
+      ADD COLUMN IF NOT EXISTS contributor_key_id INTEGER REFERENCES contributor_keys(id),
+      ADD COLUMN IF NOT EXISTS draft BOOLEAN NOT NULL DEFAULT true
+  `;
+  await sql`
+    ALTER TABLE directory_resources
+      ADD COLUMN IF NOT EXISTS contributor_key_id INTEGER REFERENCES contributor_keys(id)
+  `;
+  console.log("✓ ownership + draft columns");
+
+  // Rows submitted before contributor_key_id existed have no owner recorded. Back-fill by
+  // matching the stored contributor_label to a contributor_keys.label — but only where
+  // that label belongs to exactly one key, so two contributors who happen to share a
+  // label never get cross-attributed. Safe to re-run: only touches rows still NULL.
+  await sql`
+    UPDATE playbook_submissions ps
+    SET contributor_key_id = ck.id
+    FROM contributor_keys ck
+    WHERE ps.contributor_key_id IS NULL
+      AND ps.contributor_label = ck.label
+      AND (SELECT COUNT(*) FROM contributor_keys ck2 WHERE ck2.label = ck.label) = 1
+  `;
+  await sql`
+    UPDATE directory_resources dr
+    SET contributor_key_id = ck.id
+    FROM contributor_keys ck
+    WHERE dr.contributor_key_id IS NULL
+      AND dr.contributor_label = ck.label
+      AND (SELECT COUNT(*) FROM contributor_keys ck2 WHERE ck2.label = ck.label) = 1
+  `;
+  console.log("✓ back-filled ownership for pre-existing submissions");
+
   console.log("\nDone. Tables are ready.");
 }
 

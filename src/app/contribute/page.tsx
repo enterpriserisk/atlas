@@ -48,7 +48,15 @@ export default async function ContributePage() {
               <CardBody>
                 <h2 className="text-lg font-semibold text-um-blue">Add a Directory resource</h2>
                 <p className="mt-1 text-sm text-um-black-metallic">
-                  Share a tool or resource you&apos;ve found useful with the rest of ERM.
+                  Share a tool or resource you&apos;ve found useful with the rest of ESRM.
+                </p>
+              </CardBody>
+            </Card>
+            <Card href="/contribute/mine">
+              <CardBody>
+                <h2 className="text-lg font-semibold text-um-blue">My Contributions</h2>
+                <p className="mt-1 text-sm text-um-black-metallic">
+                  See what you&apos;ve submitted and remove anything you added by mistake.
                 </p>
               </CardBody>
             </Card>

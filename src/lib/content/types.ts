@@ -39,10 +39,12 @@ export interface PlaybookFrontmatter {
 
 /** A fully loaded playbook entry: frontmatter + slug + raw markdown body. Sourced either
  *  from a static .mdx file or a dynamic database submission — the rest of the app doesn't
- *  need to know which. */
+ *  need to know which. `id` is only set for database-backed entries (used to manage —
+ *  delete/approve — a specific submission; static file-based entries have no numeric id). */
 export interface PlaybookEntry extends PlaybookFrontmatter {
   slug: string;
   body: string;
+  id?: number;
 }
 
 export interface Tool {
@@ -62,7 +64,7 @@ export interface Tool {
 }
 
 /** A staff-submitted resource in the Resource Directory — not officially vetted, just
- *  shared internally by ERM staff/interns via the access-key-gated /contribute flow. */
+ *  shared internally by ESRM staff/interns via the access-key-gated /contribute flow. */
 export interface DirectoryResource {
   id: number;
   name: string;
@@ -83,7 +85,7 @@ export interface DosDontsSection {
 }
 
 export interface DosDontsContent {
-  lastReviewedByERM: string | null;
+  lastReviewedByESRM: string | null;
   sections: DosDontsSection[];
 }
 

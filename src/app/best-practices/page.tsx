@@ -7,11 +7,11 @@ import { getDosDonts } from "@/lib/content/loaders";
 export const metadata: Metadata = {
   title: "Best Practices",
   description:
-    "Responsible-AI-use standards for U-M Enterprise Risk Management staff: appropriate uses, human review, confidentiality, citations, fact-checking, and ethics.",
+    "Responsible-AI-use standards for U-M Enterprise Strategic Risk Management staff: appropriate uses, human review, confidentiality, citations, fact-checking, and ethics.",
 };
 
 export default function BestPracticesPage() {
-  const { sections, lastReviewedByERM } = getDosDonts();
+  const { sections, lastReviewedByESRM } = getDosDonts();
   const draftCount = sections.filter((s) => s.draft).length;
 
   const items: AccordionItem[] = sections.map((section) => ({
@@ -36,7 +36,7 @@ export default function BestPracticesPage() {
       <PageHeader
         eyebrow="Responsible-use standards"
         title="Best Practices"
-        description="Clear standards for using AI responsibly within Enterprise Risk Management. Expand any section for practical do's, don'ts, and a real-world example."
+        description="Clear standards for using AI responsibly within Enterprise Strategic Risk Management. Expand any section for practical do's, don'ts, and a real-world example."
       />
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <div className="mb-6">
@@ -44,7 +44,7 @@ export default function BestPracticesPage() {
             variant="banner"
             message={
               draftCount > 0
-                ? "These standards are working guidance and must be applied with human judgment. Draft sections are pending review by ERM subject-matter experts."
+                ? "These standards are working guidance and must be applied with human judgment. Draft sections are pending review by ESRM subject-matter experts."
                 : "These standards are working guidance and must be applied with human judgment."
             }
           />
@@ -56,29 +56,29 @@ export default function BestPracticesPage() {
           defaultOpen={sections[0] ? [sections[0].id] : []}
         />
 
-        <ReviewFooter lastReviewedByERM={lastReviewedByERM} draftCount={draftCount} />
+        <ReviewFooter lastReviewedByESRM={lastReviewedByESRM} draftCount={draftCount} />
       </div>
     </>
   );
 }
 
 function ReviewFooter({
-  lastReviewedByERM,
+  lastReviewedByESRM,
   draftCount,
 }: {
-  lastReviewedByERM: string | null;
+  lastReviewedByESRM: string | null;
   draftCount: number;
 }) {
   return (
     <footer className="mt-8 border-t border-border-subtle pt-4 text-sm text-um-stone">
-      {lastReviewedByERM ? (
+      {lastReviewedByESRM ? (
         <p>
-          Last reviewed by ERM on{" "}
-          <span className="font-medium text-um-black-metallic">{lastReviewedByERM}</span>.
+          Last reviewed by ESRM on{" "}
+          <span className="font-medium text-um-black-metallic">{lastReviewedByESRM}</span>.
         </p>
       ) : (
         <p>
-          <span className="font-semibold text-[#7a3406]">Not yet reviewed by ERM.</span>
+          <span className="font-semibold text-[#7a3406]">Not yet reviewed by ESRM.</span>
           {draftCount > 0 && (
             <>
               {" "}

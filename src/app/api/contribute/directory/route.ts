@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getContributorSession } from "@/lib/auth/session";
+import { isContributorKeyActive } from "@/lib/auth/keys";
 import { createDirectoryResource } from "@/lib/content/directory";
 
 interface Body {
@@ -17,6 +18,12 @@ export async function POST(req: Request) {
     return NextResponse.json(
       { error: "Enter your access key on the Contribute page first." },
       { status: 401 },
+    );
+  }
+  if (!(await isContributorKeyActive(session.contributorId))) {
+    return NextResponse.json(
+      { error: "Your access key has been revoked. Contact the site admin for a new one." },
+      { status: 403 },
     );
   }
 
@@ -45,13 +52,16 @@ export async function POST(req: Request) {
   const tags = Array.isArray(body.tags) ? body.tags.filter((t) => typeof t === "string" && t.trim()) : [];
 
   try {
-    const resource = await createDirectoryResource({
-      name,
-      url: url || null,
-      description,
-      tags,
-      contributorLabel: session.label,
-    });
+    const resource = await createDirectoryResource(
+      {
+        name,
+        url: url || null,
+        description,
+        tags,
+        contributorLabel: session.label,
+      },
+      session.contributorId,
+    );
     return NextResponse.json({ ok: true, id: resource.id });
   } catch (err) {
     return NextResponse.json(

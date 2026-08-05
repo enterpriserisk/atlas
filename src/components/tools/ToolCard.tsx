@@ -27,7 +27,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
   return (
     <Card
       id={tool.id}
-      accent={tool.universityProvided ? "bg-um-maize" : "bg-um-tappan-red"}
+      accent={tool.universityProvided ? "bg-um-maize" : "bg-um-arboretum-blue"}
       className="scroll-mt-24"
     >
       <CardBody>
@@ -36,19 +36,11 @@ export function ToolCard({ tool }: { tool: Tool }) {
           {tool.universityProvided ? (
             <Badge tone="success">{tool.label}</Badge>
           ) : (
-            <Badge tone="danger" glyph="⚠">
-              External tool
-            </Badge>
+            <Badge tone="info">External tool</Badge>
           )}
         </div>
 
         <p className="mt-2 leading-relaxed text-um-black-metallic">{tool.shortDescription}</p>
-
-        {!tool.universityProvided && (
-          <div className="mt-3">
-            <NonUniversityToolBadge variant="banner" />
-          </div>
-        )}
 
         <p className="mt-4 text-sm font-medium text-um-blue">Best for</p>
         <p className="text-sm text-um-black-metallic">{tool.bestFor}</p>
@@ -88,6 +80,12 @@ export function ToolCard({ tool }: { tool: Tool }) {
             <p className="text-sm font-semibold text-um-blue">How to access</p>
             <p className="mt-1 text-sm text-um-black-metallic">{tool.accessPath}</p>
           </div>
+
+          {!tool.universityProvided && (
+            <div className="mt-4">
+              <NonUniversityToolBadge variant="banner" />
+            </div>
+          )}
 
           {tool.relatedPlaybookTags.length > 0 && (
             <div className="mt-4 flex flex-wrap items-center gap-2">

@@ -175,7 +175,7 @@ function buildPrompt(input: TaskInput, tools: ReturnType<typeof getTools>): stri
   const lines: string[] = [];
   lines.push(
     "You are the assessment engine behind ATLAS, an AI-use advisor for University of Michigan " +
-      "Enterprise Risk Management staff. Given a task someone is about to do, you decide whether " +
+      "Enterprise Strategic Risk Management staff. Given a task someone is about to do, you decide whether " +
       "AI assistance is appropriate, score five risk/benefit dimensions, and rank the available AI " +
       "tools for that specific task. Be specific to the task described — never give generic, " +
       "boilerplate reasoning that could apply to any task.",

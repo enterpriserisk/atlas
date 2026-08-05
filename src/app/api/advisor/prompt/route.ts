@@ -98,7 +98,7 @@ function buildPrompt(body: RequestBody): string {
   const lines: string[] = [];
   lines.push(
     "You are drafting the final output of ATLAS, an AI-use advisor for University of Michigan " +
-      "Enterprise Risk Management staff. The staff member has already been assessed and chosen a tool; " +
+      "Enterprise Strategic Risk Management staff. The staff member has already been assessed and chosen a tool; " +
       "your job is to write the actual ready-to-use prompt for that tool, tailored usage instructions, " +
       "and a human-review checklist. Be concrete and specific to this task, not generic.",
   );

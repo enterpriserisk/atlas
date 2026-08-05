@@ -5,7 +5,7 @@ import { getDirectoryResources } from "@/lib/content/directory";
 export const metadata: Metadata = {
   title: "Resource Directory",
   description:
-    "Tools and resources ERM staff and interns have found useful and shared with each other — not officially vetted, just shared internally.",
+    "Tools and resources ESRM staff and interns have found useful and shared with each other — not officially vetted, just shared internally.",
 };
 
 export const dynamic = "force-dynamic";
@@ -17,7 +17,7 @@ export default async function DirectoryPage() {
     <>
       <PageHeader
         eyebrow="Resource Directory"
-        title="Shared by ERM staff"
+        title="Shared by ESRM staff"
         description="Tools and resources staff and interns have found useful and shared with each other. Unlike the Tool Directory, these aren't officially vetted — treat them as peer recommendations, not endorsements."
       />
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
