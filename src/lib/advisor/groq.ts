@@ -9,13 +9,24 @@ import "server-only";
  * the build fail loudly if that ever happens, so GROQ_API_KEY can't leak to the browser.
  *
  * Unlike OpenRouter's free auto-router (which gambles on whichever third-party backend is
- * available, and was observed hanging for minutes at a time), Groq serves a specific named
- * model on its own hardware — free, no credit card, and consistently fast. Model defaults
- * to "llama-3.3-70b-versatile"; override via GROQ_MODEL.
+ * available, and was observed hanging for minutes at a time), Groq serves specific named
+ * models on its own hardware — free, no credit card, and consistently fast. Groq does
+ * periodically deprecate models with advance notice (see
+ * https://console.groq.com/docs/deprecations) — this previously broke the Advisor outright
+ * when `llama-3.3-70b-versatile` was shut down and every request 404'd. To survive the next
+ * one without a code change being on the critical path, requests now fall through an
+ * ordered chain of models rather than hard-failing on the first one that's gone.
  */
 
 const ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
-const DEFAULT_MODEL = "llama-3.3-70b-versatile";
+
+// Ordered fallback chain, tried in sequence whenever a model is missing/decommissioned.
+// The first entry is the "preferred" model; the rest are just-in-case backups so a single
+// deprecation can't fully brick the Advisor between now and whenever someone next updates
+// this list. When Groq announces a deprecation for whichever model is first here, move it
+// to the back (or drop it) and put the recommended replacement at the front — see
+// https://console.groq.com/docs/models for current model IDs.
+const FALLBACK_MODELS = ["openai/gpt-oss-120b", "qwen/qwen3.6-27b", "openai/gpt-oss-20b"];
 
 export class GroqError extends Error {
   status?: number;
@@ -38,13 +49,58 @@ export function isGroqError(err: unknown): err is GroqError {
   return err instanceof Error && err.name === "GroqError";
 }
 
+/** True for the specific shape of error Groq returns for a missing/decommissioned model —
+ * the one case where retrying with a *different* model can actually help. Anything else
+ * (bad auth, malformed request, rate limit, network/timeout) would fail identically
+ * regardless of which model was asked for, so those are surfaced immediately rather than
+ * silently retried three times in a row. */
+function isModelUnavailableError(err: unknown): boolean {
+  if (!isGroqError(err)) return false;
+  if (err.status === 404) return true;
+  return /model_not_found|model_decommissioned|does not exist|no longer supported/i.test(err.message);
+}
+
 /**
  * Sends `input` as a single user message and returns the model's response parsed as JSON
  * of shape `T`. The prompt text passed in `input` must itself spell out the exact JSON
  * shape expected, since `json_object` mode guarantees valid JSON but not a specific schema
  * (callers should still validate/normalize the parsed result defensively).
+ *
+ * Tries `args.model` (or `GROQ_MODEL`, or the fallback chain's first entry) first, and only
+ * on a "model unavailable" response falls through to the next candidate in FALLBACK_MODELS,
+ * skipping the primary if it's a duplicate. Any other error type is thrown immediately.
  */
 export async function callGroqJSON<T>(args: { input: string; model?: string }): Promise<T> {
+  const preferred = args.model ?? process.env.GROQ_MODEL ?? FALLBACK_MODELS[0];
+  const candidates = [preferred, ...FALLBACK_MODELS.filter((m) => m !== preferred)];
+
+  let lastError: unknown;
+  for (let i = 0; i < candidates.length; i++) {
+    const model = candidates[i];
+    try {
+      const result = await attemptGroqCall<T>(model, args.input);
+      if (i > 0) {
+        console.warn(
+          `[groq] "${candidates[0]}" was unavailable; served this request with fallback model "${model}" instead. ` +
+            `Update GROQ_MODEL / FALLBACK_MODELS in src/lib/advisor/groq.ts.`,
+        );
+      }
+      return result;
+    } catch (err) {
+      lastError = err;
+      if (!isModelUnavailableError(err)) throw err;
+      // else: try the next candidate
+    }
+  }
+
+  const message = isGroqError(lastError) ? lastError.message : "Unknown error.";
+  throw new GroqError(
+    `None of Groq's configured models are currently available (tried: ${candidates.join(", ")}). ` +
+      `Last error: ${message} — check https://console.groq.com/docs/models for current model IDs.`,
+  );
+}
+
+async function attemptGroqCall<T>(model: string, input: string): Promise<T> {
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     throw new GroqError(
@@ -52,7 +108,6 @@ export async function callGroqJSON<T>(args: { input: string; model?: string }): 
         ".env.local, add a free key from https://console.groq.com/keys, and restart the dev server.",
     );
   }
-  const model = args.model ?? process.env.GROQ_MODEL ?? DEFAULT_MODEL;
 
   // Bound the call explicitly rather than trusting it resolves quickly — even fast
   // providers can have an occasional slow request, and the UI shouldn't spin forever.
@@ -71,7 +126,7 @@ export async function callGroqJSON<T>(args: { input: string; model?: string }): 
       },
       body: JSON.stringify({
         model,
-        messages: [{ role: "user", content: args.input }],
+        messages: [{ role: "user", content: input }],
         response_format: { type: "json_object" },
       }),
       signal: AbortSignal.timeout(30_000),
